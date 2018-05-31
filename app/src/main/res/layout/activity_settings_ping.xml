@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/main_bg"
     android:padding="32dp">
 
 
@@ -128,9 +129,10 @@
             android:id="@+id/countValue"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/oval_label_bg"
             android:gravity="center"
             android:padding="4dp"
+            android:elevation="4dp"
             android:text="4"
             android:textColor="@android:color/white"
             android:textSize="12sp"
@@ -142,9 +144,10 @@
             android:id="@+id/sizeValue"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/oval_label_bg"
             android:gravity="center"
             android:padding="4dp"
+            android:elevation="4dp"
             android:text="64"
             android:textColor="@android:color/white"
             android:textSize="12sp"
@@ -156,9 +159,10 @@
             android:id="@+id/intervalValue"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/oval_label_bg"
             android:gravity="center"
             android:padding="4dp"
+            android:elevation="4dp"
             android:text="2"
             android:textColor="@android:color/white"
             android:textSize="12sp"
@@ -170,16 +174,16 @@
             android:id="@+id/ttlValue"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/oval_label_bg"
             android:gravity="center"
             android:padding="4dp"
+            android:elevation="4dp"
             android:text="2"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/seekBarTTL"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/seekBarTTL"/>
-
 
     </android.support.constraint.ConstraintLayout>
 

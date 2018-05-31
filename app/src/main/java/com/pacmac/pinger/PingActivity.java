@@ -2,7 +2,12 @@ package com.pacmac.pinger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +21,6 @@ public class PingActivity extends AppCompatActivity implements PingListener {
 
     private EditText ipEditText = null;
     private Button pingBtn = null;
-    private ImageView settingsBtn = null;
     private TextView pingOutput = null;
     private ScrollView outputScrollView = null;
 
@@ -35,7 +39,6 @@ public class PingActivity extends AppCompatActivity implements PingListener {
 
         ipEditText = findViewById(R.id.pingAddress);
         pingBtn = findViewById(R.id.pingBtn);
-        settingsBtn = findViewById(R.id.settingsBtn);
 
         pingOutput = findViewById(R.id.pingOutput);
         outputScrollView = findViewById(R.id.mScrollView);
@@ -79,18 +82,6 @@ public class PingActivity extends AppCompatActivity implements PingListener {
             }
         });
 
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(getApplicationContext(), SettingsPingActivity.class);
-                settingsIntent.putExtra(Constants.PING_COUNT_PREF, count);
-                settingsIntent.putExtra(Constants.PING_SIZE_PREF, size);
-                settingsIntent.putExtra(Constants.PING_INTERVAL_PREF, interval);
-                settingsIntent.putExtra(Constants.PING_TTL_PREF, ttl);
-                startActivityForResult(settingsIntent, Constants.PING_SETTINGS_RC);
-            }
-        });
-
     }
 
 
@@ -119,5 +110,28 @@ public class PingActivity extends AppCompatActivity implements PingListener {
                 outputScrollView.smoothScrollTo(0, pingOutput.getBottom());
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.settings) {
+            Intent settingsIntent = new Intent(getApplicationContext(), SettingsPingActivity.class);
+            settingsIntent.putExtra(Constants.PING_COUNT_PREF, count);
+            settingsIntent.putExtra(Constants.PING_SIZE_PREF, size);
+            settingsIntent.putExtra(Constants.PING_INTERVAL_PREF, interval);
+            settingsIntent.putExtra(Constants.PING_TTL_PREF, ttl);
+            startActivityForResult(settingsIntent, Constants.PING_SETTINGS_RC);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ping_activity, menu);
+        return true;
     }
 }
