@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.net.URL;
+
 public class PingActivity extends AppCompatActivity implements PingListener {
 
     private static final String TAG = PingActivity.class.getSimpleName();
@@ -53,6 +55,11 @@ public class PingActivity extends AppCompatActivity implements PingListener {
             @Override
             public void onClick(View v) {
 
+                    String address = ipEditText.getText().toString();
+                boolean t = isValid(address);
+
+
+
                 if(isPingRunning) {
                     Ping.cancelProcess();
 
@@ -69,8 +76,7 @@ public class PingActivity extends AppCompatActivity implements PingListener {
                     String intervalSTR = "-i " + String.valueOf(interval);
                     String ttlSTR = "-t " + String.valueOf(ttl);
 
-                    String ipAddress = ipEditText.getText().toString();
-                    String command = sizeSTR + " " + countSTR + " " + intervalSTR + " " + ttlSTR + " " + ipAddress;
+                    String command = sizeSTR + " " + countSTR + " " + intervalSTR + " " + ttlSTR + " " + address;
 
                     // Clear output window
                     pingOutput.setText("");
@@ -83,7 +89,6 @@ public class PingActivity extends AppCompatActivity implements PingListener {
         });
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -134,4 +139,31 @@ public class PingActivity extends AppCompatActivity implements PingListener {
         getMenuInflater().inflate(R.menu.menu_ping_activity, menu);
         return true;
     }
+
+
+    /* Returns true if url is valid */
+    public static boolean isValid(String url)
+    {
+        /* Try creating a valid URL */
+        try {
+            new URL("http://" +url).toURI();
+            return true;
+        }
+
+        // If there was an Exception
+        // while creating URL object
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public boolean isIPAddress(String input) {
+
+//        if(input.matches("\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b")) {
+//
+//        }
+    return true;
+    }
+
 }
