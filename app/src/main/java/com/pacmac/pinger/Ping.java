@@ -1,8 +1,10 @@
 package com.pacmac.pinger;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 /**
  * Created by pacmac on 2018-05-24.
@@ -37,7 +39,8 @@ public final class Ping {
             return output.toString();
 
         } catch (IOException e) {
-            return "IO Exception - Something went wrong";
+            task.publishResponse("Ping has been canceled.");
+            return "Ping has been canceled.";
         } finally {
             if(reader!=null) {
                 try {
@@ -50,8 +53,9 @@ public final class Ping {
     }
 
     public static void cancelProcess() {
-        if(process != null) {
-            isStop= true;
+        if (process != null) {
+            process.destroy();
+            isStop = true;
         }
     }
 

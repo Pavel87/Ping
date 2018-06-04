@@ -3,4 +3,10 @@
     <color name="colorPrimary">#143F60</color>
     <color name="colorPrimaryDark">#002F53</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="control_bg">#EAEAEA</color>
+    <color name="control_bg_stroke">#E1E1E1</color>
+    <color name="ping_bg">#1A1A1A</color>
+    <color name="ping_bg_stroke">#3A3A3A</color>
+    <color name="btn_text">#222222</color>
+    <color name="settings_text">#222222</color>
 </resources>

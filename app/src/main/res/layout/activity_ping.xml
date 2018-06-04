@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,61 +7,70 @@
     android:background="@drawable/main_bg"
     tools:context=".PingActivity">
 
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/pingTextLayout"
-        android:layout_width="233dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/controlView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="2"
-        app:layout_constraintBottom_toBottomOf="@+id/pingBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pingBtn"
-        >
-
-        <EditText
-            android:id="@+id/pingAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter IP address"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:text="9.9.9.9"
-            android:textSize="14sp"
-            />
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/pingBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginBottom="8dp"
+        android:paddingTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:elevation="2dp"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Ping"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/control_bg"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/pingTextLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.051"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pingTextLayout"
+            android:layout_width="233dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="3"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="@+id/pingBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pingBtn">
+
+            <EditText
+                android:id="@+id/pingAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter IP address"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="9.9.9.9"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/pingBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Ping"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:theme="@style/PrimaryFlatButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/pingTextLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.051" />
+    </android.support.constraint.ConstraintLayout>
+
 
     <ScrollView
         android:id="@+id/mScrollView"
@@ -73,17 +81,17 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="56dp"
         android:layout_weight="1"
-        android:background="@android:color/black"
-        android:elevation="1dp"
+        android:background="@drawable/ping_bg"
+        android:elevation="5dp"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pingTextLayout"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintTop_toBottomOf="@+id/controlView"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/pingOutput"
@@ -92,28 +100,21 @@
             android:padding="8dp"
             android:text=""
             android:textColor="@color/colorAccent"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </ScrollView>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"/>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"/>
-
-    <android.support.constraint.Barrier
-        android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left"/>
+    <ImageView
+        android:id="@+id/exportBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:elevation="15dp"
+        android:src="@mipmap/export"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/mScrollView"
+        app:layout_constraintEnd_toEndOf="@+id/mScrollView" />
 
 </android.support.constraint.ConstraintLayout>

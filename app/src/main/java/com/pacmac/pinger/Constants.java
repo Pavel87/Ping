@@ -6,14 +6,19 @@ package com.pacmac.pinger;
 
 public class Constants {
 
+    protected final static String VERSION = "0.9";
+
     protected final static int PING_SETTINGS_RC = 8;
 
     protected final static String INFINITY = "\u221E";
 
     protected final static int PING_COUNT_DEFAULT = 4;
-    protected final static int PING_SIZE_DEFAULT = 64; //packets
-    protected final static int PING_INTERVAL_DEFAULT = 1; // second
-    protected final static int PING_TTL_DEFAULT = 52;
+    protected final static int PING_SIZE_DEFAULT = 55; // getPacketSizeFromProgress(55) == 56 Bytes
+    protected final static int PING_INTERVAL_DEFAULT = 5; // getIntervalFromProgress(5) == 1 second
+    protected final static int PING_TTL_DEFAULT = 63; // getTTLFromProgress(63) == 64 ttl
+    protected final static int PING_DEADLINE_DEFAULT = 0;
+    protected final static boolean PING_TIMESTAMPS_DEFAULT = false;
+    protected final static boolean PING_ROUTE_DEFAULT = false;
 
     protected final static String PINGER_PREF_FILE = "PINGER";
 
@@ -21,10 +26,8 @@ public class Constants {
     protected final static String PING_SIZE_PREF = "s";
     protected final static String PING_INTERVAL_PREF = "i";
     protected final static String PING_TTL_PREF = "t";
-
-
-
-
-
+    protected final static String PING_DEADLINE_PREF = "w";
+    protected final static String PING_TIMESTAMPS_PREF = "T";
+    protected final static String PING_ROUTE_PREF = "R";
 
 }
