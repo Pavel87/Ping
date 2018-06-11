@@ -1,9 +1,17 @@
 <resources>
-    <string name="app_name">ICMP Pinger</string>
-    <string name="config_name">Pinger Configuration</string>
-    <string name="about_name">About Pinger</string>
+    <string name="app_name">ICMP Ping</string>
+    <string name="config_name">ICMP Ping Configuration</string>
+    <string name="about_name">About ICMP Ping</string>
+    <string name="permission_explanation">If you wish export file to SD you will must grant access to file system.</string>
+    <string name="permission_proceed">PROCEED</string>
+    <string name="permission_cancel">CANCEL</string>
     <string name="settings">Settings</string>
     <string name="options">Options</string>
+    <string name="address_format">Ping Address Format</string>
+    <string name="ipAddress1">IP Example</string>
+    <string name="ipAddress2">9.9.9.9\n192.168.2.1</string>
+    <string name="urlAddress1">URL Example </string>
+    <string name="urlAddress2">www.google.com\ngoogle.com</string>
     <string name="count">COUNT</string>
     <string name="size">PACKET SIZE</string>
     <string name="interval">INTERVAL</string>
@@ -11,19 +19,13 @@
     <string name="deadline">DEADLINE</string>
     <string name="route">ROUTE RECORD</string>
     <string name="tsAndAddress">TIMESTAMP AND ADDRESS</string>
-
-
+    <string name="feedback">ICMP Ping - Feedback</string>
     <string name="deadline_description">Parameter defines time interval in seconds the ping will run for.</string>
     <string name="count_description">Defines amount of packet sent.</string>
     <string name="size_description">The number of data bytes to be sent. The default is 56, which translates into 64 ICMP data bytes when combined with the 8 bytes of ICMP header data.</string>
     <string name="interval_description">Set an interval of wait seconds between sending each packet. default=1 second. The fastest interval is 0.2 seconds.</string>
     <string name="ttl_description">Value of an IP packet represents the maximum number of IP routers that the packet can go through before being thrown away..</string>
-    <string name="route_description">Record route(IPv4 only). Includes the RECORD_ROUTE option in the ECHO_REQUEST packet and display the route buffer on returned packets. Note that the IP header is only large enough for nine such routes. Many hosts ignore or discard this option.</string>
-    <string name="timestamp_description">Set special IP timestamp options \'tsandaddr\' (timestamps and addresses).</string>
-
-
+    <string name="route_description">Record route(IPv4 only). Includes the RECORD_ROUTE option in the ECHO_REQUEST packet and display the route buffer on returned packets. Note that the IP header is only large enough for nine such routes. Many hosts ignore or discard this option. NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
+    <string name="timestamp_description">Set special IP timestamp options \'tsandaddr\' (timestamps and addresses). NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
     <string name="about_app">Application access system ping with several configuration options. Ping functionality is similar to Unix.\n\nDeveloped by pacmac 2018.</string>
-
-
-
 </resources>

@@ -1,8 +1,10 @@
 package com.pacmac.pinger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class AboutActivity extends AppCompatActivity {
@@ -17,6 +19,18 @@ public class AboutActivity extends AppCompatActivity {
 
         versionText = findViewById(R.id.version);
         versionText.setText(Constants.VERSION);
+
+        findViewById(R.id.feedbackBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Email = new Intent(Intent.ACTION_SEND);
+                Email.setType("text/email");
+                Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"pacmac.dev@gmail.com"});
+                Email.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.feedback));
+                Email.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(Email, "Send Feedback:"));
+            }
+        });
     }
 
 

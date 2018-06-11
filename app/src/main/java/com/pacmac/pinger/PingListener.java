@@ -8,5 +8,4 @@ public interface PingListener {
 
     void onComplete(String result);
     void onStep(String line);
-
 }
