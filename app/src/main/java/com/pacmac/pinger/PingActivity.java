@@ -66,11 +66,11 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         isRoute = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_ROUTE_DEFAULT, Constants.PING_ROUTE_PREF);
         isTimestamp = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_TIMESTAMPS_DEFAULT, Constants.PING_TIMESTAMPS_PREF);
 
-        ipEditText.setSelection(ipEditText.getText().length());
         ipEditText.clearFocus();
 
         pingAddress = Utility.getStringFromPreference(getApplicationContext(), Constants.PING_ADDRESS_DEFAULT, Constants.PING_ADDRESS_PREF);
         ipEditText.setText(pingAddress);
+        ipEditText.setSelection(ipEditText.getText().length());
 
         pingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
