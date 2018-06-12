@@ -1,10 +1,8 @@
 package com.pacmac.pinger;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 
 /**
  * Created by pacmac on 2018-05-24.
@@ -13,10 +11,12 @@ import java.io.OutputStream;
 public final class Ping {
 
     private static boolean isStop = false;
+    private static boolean isRunning = false;
     private static Process process = null;
 
     public static String ping(AsyncPingTask task, String command) {
         isStop = false;
+        isRunning = true;
         BufferedReader reader = null;
         try {
             process = Runtime.getRuntime().exec(
@@ -36,13 +36,14 @@ public final class Ping {
             }
 
             process.destroy();
+            isRunning = false;
             return output.toString();
 
         } catch (IOException e) {
             task.publishResponse("Ping has been canceled.");
             return "Ping has been canceled.";
         } finally {
-            if(reader!=null) {
+            if(reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
@@ -56,6 +57,7 @@ public final class Ping {
         if (process != null) {
             process.destroy();
             isStop = true;
+            isRunning = false;
         }
     }
 
