@@ -35,8 +35,11 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".SettingsPingActivity" />
 
-        <service android:name="com.tutelatechnologies.sdk.framework.TutelaSDKService"></service>
-
+        <service
+            android:name="com.tutelatechnologies.sdk.framework.TutelaSDKService"
+            android:enabled="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            />
 
     </application>
 

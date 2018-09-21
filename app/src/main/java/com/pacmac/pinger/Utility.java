@@ -133,15 +133,19 @@ public class Utility {
     }
 
     protected static void shareResult(Activity activity, String pingAddress, String output) {
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Ping for: " + pingAddress);
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, output);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getApplicationContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
-        } else {
-            activity.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        try {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Ping for: " + pingAddress);
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, output);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity.getApplicationContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            } else {
+                activity.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
