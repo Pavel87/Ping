@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.DhcpInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -20,11 +22,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class PingActivity extends AppCompatActivity implements PingListener, ExportListener {
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+public class PingActivity extends AppCompatActivity implements PingListener, ExportListener, NetworkMonitor.NetworkMonitorCallback {
+
+    private TextView phoneIP = null;
+    private TextView routerIP = null;
+    private TextView serverIP = null;
     private EditText ipEditText = null;
     private Button pingBtn = null;
     private TextView pingOutput = null;
@@ -32,6 +43,14 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private TextInputLayout pingTextLayout = null;
     private View exportBtn = null;
     private PopupWindow popupWindow = null;
+
+    View routingView = null;
+    View routerView = null;
+    View serverView = null;
+    ProgressBar progressLocalNet = null;
+    ProgressBar progressInternet = null;
+
+    NetworkMonitor networkMonitor = null;
 
     private int size = Constants.PING_SIZE_DEFAULT;
     private int count = Constants.PING_COUNT_DEFAULT;
@@ -45,6 +64,10 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private boolean isPingRunning = false;
     private boolean isAppPaused = false;
 
+    private String ipAddress = "UNKNOWN";
+    private String gatewayIPAddress = "UNKNOWN";
+    private String remoteIPAddress = "UNKNOWN";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +77,15 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         ipEditText = findViewById(R.id.pingAddress);
         pingBtn = findViewById(R.id.pingBtn);
         exportBtn = findViewById(R.id.exportBtn);
+        phoneIP = findViewById(R.id.phoneIP);
+        routerIP = findViewById(R.id.routerIP);
+        serverIP = findViewById(R.id.serverIP);
+
+        routingView = findViewById(R.id.ipLocationView);
+        routerView = findViewById(R.id.routerView);
+        serverView = findViewById(R.id.serverView);
+        progressLocalNet = findViewById(R.id.progressLocalNet);
+        progressInternet = findViewById(R.id.progressInternet);
 
         pingOutput = findViewById(R.id.pingOutput);
         outputScrollView = findViewById(R.id.mScrollView);
@@ -75,6 +107,11 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         pingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                setRoutingViewVisible(networkMonitor.isWIFIConnected());
+                setLocalNetworkVisible(false);
+                setInternetNetworkVisible(false);
+
                 if (isPingRunning) {
                     Ping.cancelProcess();
                     pingBtn.setEnabled(false);
@@ -82,6 +119,8 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
 
                     String address = ipEditText.getText().toString().trim();
                     boolean isValid = Utility.isAddressValid(address);
+
+                    setLocalNetworkVisible(true);
 
                     if (!isValid) {
                         pingTextLayout.setError("Incorrect Address");
@@ -147,14 +186,9 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             }
         });
 
+        networkMonitor = new NetworkMonitor(this);
     }
 
-    // display the popup[![enter image description here][1]][1]
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//        mPopupWindow.showAsDropDown(v, 0, 0, Gravity.END);
-//    } else {
-//        mPopupWindow.showAsDropDown(v, v.getWidth() - mPopupWindow.getWidth(), 0);
-//    }
 
     public void showPopup(View v) {
 
@@ -263,6 +297,8 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         if (pingOutput.getText().length() > 0) {
             exportBtn.setVisibility(View.VISIBLE);
         }
+        progressLocalNet.setIndeterminate(false);
+        progressInternet.setIndeterminate(false);
     }
 
     @Override
@@ -274,6 +310,9 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 outputScrollView.smoothScrollTo(0, pingOutput.getBottom());
             }
         });
+        if(networkMonitor.isWIFIConnected()) {
+            getIPAddress(line);
+        }
     }
 
     @Override
@@ -307,12 +346,15 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         super.onResume();
         pingBtn.setEnabled(true);
         isAppPaused = false;
+        networkMonitor.registerConnectivityReceiver(getApplicationContext());
+        onWiFiConnectionChanged(networkMonitor.isWiFiConnected(getApplicationContext()));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Ping.cancelProcess();
+        networkMonitor.unregisterConnectivityReceiver(getApplicationContext());
         isAppPaused = true;
         try {
             if (popupWindow != null && popupWindow.isShowing()) {
@@ -331,6 +373,92 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 Snackbar.make(findViewById(android.R.id.content), "Export to SD enabled.", Snackbar.LENGTH_SHORT)
                         .setActionTextColor(Color.RED)
                         .show();
+            }
+        }
+    }
+
+    public void setRoutingViewVisible(boolean visible) {
+        if (visible) {
+            routingView.setVisibility(View.VISIBLE);
+            getWiFiIPAddress(getApplicationContext());
+        } else {
+            routingView.setVisibility(View.GONE);
+        }
+    }
+
+    public void getWiFiIPAddress(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        DhcpInfo dhcpInformation = wifiManager.getDhcpInfo();
+        ipAddress = intToInetAddress(dhcpInformation.ipAddress).getHostAddress();
+        gatewayIPAddress = intToInetAddress(dhcpInformation.gateway).getHostAddress();
+    }
+
+    public static InetAddress intToInetAddress(int hostAddress) {
+        byte[] addressBytes = {(byte) (0xff & hostAddress),
+                (byte) (0xff & (hostAddress >> 8)),
+                (byte) (0xff & (hostAddress >> 16)),
+                (byte) (0xff & (hostAddress >> 24))};
+
+        try {
+            return InetAddress.getByAddress(addressBytes);
+        } catch (UnknownHostException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public void onWiFiConnectionChanged(boolean isConnected) {
+        setRoutingViewVisible(isConnected);
+        if (isConnected) {
+            phoneIP.setText(ipAddress);
+            routerIP.setText(gatewayIPAddress);
+        }
+    }
+
+    public void setLocalNetworkVisible(boolean visible) {
+        if (visible) {
+            if (networkMonitor.isWIFIConnected()) {
+                progressLocalNet.setVisibility(View.VISIBLE);
+                progressLocalNet.setIndeterminate(true);
+                routerView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            progressLocalNet.setVisibility(View.GONE);
+            routerView.setVisibility(View.GONE);
+            progressLocalNet.setIndeterminate(false);
+        }
+    }
+
+    public void setInternetNetworkVisible(boolean visible) {
+        if (visible) {
+            if (networkMonitor.isWIFIConnected()) {
+                progressInternet.setVisibility(View.VISIBLE);
+                progressInternet.setIndeterminate(true);
+                serverView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            progressInternet.setVisibility(View.GONE);
+            progressInternet.setIndeterminate(false);
+            serverView.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void getIPAddress(String rawPing) {
+        if (rawPing != null) {
+            try {
+                final String regExp = "[^(]*\\(([^)]*)\\)";
+                Pattern patterns = Pattern.compile(regExp);
+                Matcher m = patterns.matcher(rawPing);
+                if (m.find()) {
+                    remoteIPAddress = m.group(1);
+                    serverIP.setText(remoteIPAddress);
+                    if(!remoteIPAddress.equals(gatewayIPAddress)) {
+                        setInternetNetworkVisible(true);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_bg"
-    tools:context=".PingActivity">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/main_bg"
+                                             tools:context=".PingActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/controlView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/control_bg"
         android:elevation="10dp"
+        android:paddingTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,18 +28,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="2"
             app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="@+id/pingBtn"
             app:layout_constraintEnd_toStartOf="@+id/pingBtn"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/pingBtn"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toTopOf="@+id/pingBtn">
 
             <EditText
                 android:id="@+id/pingAddress"
@@ -49,7 +49,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -57,8 +57,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Ping"
@@ -68,21 +69,145 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"/>
     </android.support.constraint.ConstraintLayout>
 
 
-    <android.support.constraint.ConstraintLayout
+    <!--<android.support.constraint.ConstraintLayout-->
+    <!--android:id="@+id/ipLocationView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="24dp"-->
+    <!--android:background="@drawable/control_bg"-->
+    <!--android:elevation="10dp"-->
+    <!--android:paddingTop="8dp"-->
+    <!--android:paddingBottom="8dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/controlView">-->
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/phoneIcon"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:src="@drawable/android"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/phoneIP"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:text="192.168.1.2"-->
+    <!--android:textSize="10sp"-->
+    <!--app:layout_constraintEnd_toEndOf="@+id/phoneIcon"-->
+    <!--app:layout_constraintStart_toStartOf="@+id/phoneIcon"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/phoneIcon"/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/routerIcon"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:src="@drawable/router"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/serverIcon"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/phoneIcon"-->
+    <!--app:layout_constraintTop_toTopOf="parent"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/routerIP"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:text="192.168.1.2"-->
+    <!--android:textSize="10sp"-->
+    <!--app:layout_constraintEnd_toEndOf="@+id/routerIcon"-->
+    <!--app:layout_constraintStart_toStartOf="@+id/routerIcon"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/routerIcon"/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/serverIcon"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:layout_marginRight="16dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:src="@drawable/server"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/serverIP"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:text="192.168.1.2"-->
+    <!--android:textSize="10sp"-->
+    <!--app:layout_constraintEnd_toEndOf="@+id/serverIcon"-->
+    <!--app:layout_constraintStart_toStartOf="@+id/serverIcon"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/serverIcon"/>-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/progressLocalNet"-->
+    <!--style="?android:attr/progressBarStyleHorizontal"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="4dp"-->
+    <!--android:layout_marginLeft="4dp"-->
+    <!--android:layout_marginRight="4dp"-->
+    <!--android:layout_marginStart="4dp"-->
+    <!--android:progress="100"-->
+    <!--app:layout_constraintBottom_toBottomOf="@+id/phoneIcon"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/routerIcon"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/phoneIcon"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/phoneIcon"/>-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/progressInternet"-->
+    <!--style="?android:attr/progressBarStyleHorizontal"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="4dp"-->
+    <!--android:layout_marginLeft="4dp"-->
+    <!--android:layout_marginRight="4dp"-->
+    <!--android:layout_marginStart="4dp"-->
+    <!--android:progress="100"-->
+    <!--app:layout_constraintBottom_toBottomOf="@+id/routerIcon"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/serverIcon"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/routerIcon"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/routerIcon"/>-->
+
+    <!--</android.support.constraint.ConstraintLayout>-->
+
+
+    <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ipLocationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="16dp"
         android:background="@drawable/control_bg"
         android:elevation="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,118 +215,136 @@
         app:layout_constraintTop_toBottomOf="@+id/controlView">
 
 
-        <ImageView
-            android:id="@+id/phoneIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/phoneIP"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="192.168.1.2"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="@+id/phoneIcon"
-            app:layout_constraintStart_toStartOf="@+id/phoneIcon"
-            app:layout_constraintTop_toBottomOf="@+id/phoneIcon"/>
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/routerIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintEnd_toStartOf="@+id/serverIcon"
-            app:layout_constraintStart_toEndOf="@+id/phoneIcon"
-            app:layout_constraintTop_toTopOf="parent"/>
+            <ImageView
+                android:id="@+id/phoneIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/android"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/routerIP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="192.168.1.2"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="@+id/routerIcon"
-            app:layout_constraintStart_toStartOf="@+id/routerIcon"
-            app:layout_constraintTop_toBottomOf="@+id/routerIcon"/>
+            <TextView
+                android:id="@+id/phoneIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto"
+                android:text="UNKNOWN"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/phoneIcon"
+                app:layout_constraintStart_toStartOf="@+id/phoneIcon"
+                app:layout_constraintTop_toBottomOf="@+id/phoneIcon"/>
 
-        <ImageView
-            android:id="@+id/serverIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/serverIP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="192.168.1.2"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="@+id/serverIcon"
-            app:layout_constraintStart_toStartOf="@+id/serverIcon"
-            app:layout_constraintTop_toBottomOf="@+id/serverIcon"/>
+        </LinearLayout>
 
         <ProgressBar
+            android:visibility="gone"
             android:id="@+id/progressLocalNet"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
-            android:progress="100"
-            app:layout_constraintBottom_toBottomOf="@+id/phoneIcon"
-            app:layout_constraintEnd_toStartOf="@+id/routerIcon"
-            app:layout_constraintStart_toEndOf="@+id/phoneIcon"
-            app:layout_constraintTop_toTopOf="@+id/phoneIcon"/>
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:progress="100"/>
+
+
+        <LinearLayout
+            android:id="@+id/routerView"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/routerIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/router"
+                app:layout_constraintEnd_toStartOf="@+id/serverIcon"
+                app:layout_constraintStart_toEndOf="@+id/phoneIcon"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/routerIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="UNKNOWN"
+                android:textSize="12sp"
+                android:fontFamily="@font/roboto"
+                app:layout_constraintEnd_toEndOf="@+id/routerIcon"
+                app:layout_constraintStart_toStartOf="@+id/routerIcon"
+                app:layout_constraintTop_toBottomOf="@+id/routerIcon"/>
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressInternet"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
-            android:progress="100"
-            app:layout_constraintBottom_toBottomOf="@+id/routerIcon"
-            app:layout_constraintEnd_toStartOf="@+id/serverIcon"
-            app:layout_constraintStart_toEndOf="@+id/routerIcon"
-            app:layout_constraintTop_toTopOf="@+id/routerIcon"/>
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:progress="100"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/serverView"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
 
+            <ImageView
+                android:id="@+id/serverIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/server"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/serverIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="192.168.1.2"
+                android:textSize="12sp"
+                android:fontFamily="@font/roboto"
+                app:layout_constraintEnd_toEndOf="@+id/serverIcon"
+                app:layout_constraintStart_toStartOf="@+id/serverIcon"
+                app:layout_constraintTop_toBottomOf="@+id/serverIcon"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/mScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:background="@drawable/ping_bg"
         android:elevation="5dp"
@@ -227,13 +370,13 @@
         android:id="@+id/exportBtn"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:elevation="15dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/ripple_export_btn"
+        android:elevation="15dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/mScrollView"
-        app:layout_constraintEnd_toEndOf="@+id/mScrollView" />
+        app:layout_constraintEnd_toEndOf="@+id/mScrollView"/>
 
 </android.support.constraint.ConstraintLayout>
