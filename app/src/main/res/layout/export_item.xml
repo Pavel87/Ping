@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shareOption"
         android:clickable="true"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:theme="@style/PrimaryFlatButton">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img1"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -49,7 +49,7 @@
             app:layout_constraintStart_toEndOf="@+id/img1"
             app:layout_constraintTop_toTopOf="@+id/img1" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/menuImg3"
             android:layout_width="16dp"
             android:layout_height="16dp"
@@ -58,9 +58,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/exportOption"
         android:clickable="true"
         android:layout_width="match_parent"
@@ -74,7 +74,7 @@
         android:orientation="horizontal"
         android:theme="@style/PrimaryFlatButton">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img2"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -104,7 +104,7 @@
             app:layout_constraintStart_toEndOf="@+id/img2"
             app:layout_constraintTop_toTopOf="@+id/img2" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/menuImg2"
             android:layout_width="16dp"
             android:layout_height="16dp"
@@ -113,7 +113,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

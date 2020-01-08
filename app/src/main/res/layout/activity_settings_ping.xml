@@ -1,269 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@drawable/main_bg">
 
 
-    <android.support.constraint.ConstraintLayout
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="FULL_BANNER"
+        app:adUnitId="@string/banner_id_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <SeekBar
-            android:id="@+id/seekBarCount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:progress="4"
-            app:layout_constraintEnd_toStartOf="@+id/countValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/countTextView" />
-
-        <SeekBar
-            android:id="@+id/seekBarSize"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:progress="64"
-            app:layout_constraintEnd_toStartOf="@+id/sizeValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sizeTextView" />
-
-        <SeekBar
-            android:id="@+id/seekBarInterval"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:progress="2"
-            app:layout_constraintEnd_toStartOf="@+id/intervalValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/intervalTextView" />
-
-        <SeekBar
-            android:id="@+id/seekBarTTL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:progress="52"
-            app:layout_constraintEnd_toStartOf="@+id/ttlValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ttlTextView" />
-
-        <SeekBar
-            android:id="@+id/seekBarDeadline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:progress="0"
-            app:layout_constraintEnd_toStartOf="@+id/deadlineValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deadlineTextView" />
-
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/routeCheckBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:ellipsize="marquee"
-            android:paddingLeft="16dp"
-            android:singleLine="true"
-            android:text="-R    Record Route Option"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deadlineValue" />
-
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/timestampCheckBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="marquee"
-            android:paddingLeft="16dp"
-            android:paddingStart="16dp"
-            android:singleLine="true"
-            android:text="-T    Timestamps and Addresses"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/routeCheckBox" />
-
-        <TextView
-            android:id="@+id/countTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Count"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="@+id/seekBarCount"
-            app:layout_constraintStart_toStartOf="@+id/seekBarCount"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/sizeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Packet Size"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="@+id/seekBarSize"
-            app:layout_constraintStart_toStartOf="@+id/seekBarSize"
-            app:layout_constraintTop_toBottomOf="@+id/countValue" />
-
-        <TextView
-            android:id="@+id/intervalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Interval"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="@+id/seekBarInterval"
-            app:layout_constraintStart_toStartOf="@+id/seekBarInterval"
-            app:layout_constraintTop_toBottomOf="@+id/sizeValue" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
-        <TextView
-            android:id="@+id/ttlTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Time To Live"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="@+id/seekBarTTL"
-            app:layout_constraintStart_toStartOf="@+id/seekBarTTL"
-            app:layout_constraintTop_toBottomOf="@+id/intervalValue" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/deadlineTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Deadline"
-            android:textColor="@color/settings_text"
-            app:layout_constraintEnd_toEndOf="@+id/seekBarDeadline"
-            app:layout_constraintStart_toStartOf="@+id/seekBarDeadline"
-            app:layout_constraintTop_toBottomOf="@+id/ttlValue" />
+            <SeekBar
+                android:id="@+id/seekBarCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:progress="4"
+                app:layout_constraintEnd_toStartOf="@+id/countValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/countTextView" />
 
-        <TextView
-            android:id="@+id/countValue"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/oval_label_bg"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="4"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBarCount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBarCount" />
+            <SeekBar
+                android:id="@+id/seekBarSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:progress="64"
+                app:layout_constraintEnd_toStartOf="@+id/sizeValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sizeTextView" />
 
-        <TextView
-            android:id="@+id/sizeValue"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/oval_label_bg"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="64"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBarSize" />
+            <SeekBar
+                android:id="@+id/seekBarInterval"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:progress="2"
+                app:layout_constraintEnd_toStartOf="@+id/intervalValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/intervalTextView" />
 
-        <TextView
-            android:id="@+id/intervalValue"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/oval_label_bg"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="2"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBarInterval"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBarInterval" />
+            <SeekBar
+                android:id="@+id/seekBarTTL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:progress="52"
+                app:layout_constraintEnd_toStartOf="@+id/ttlValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ttlTextView" />
 
-        <TextView
-            android:id="@+id/ttlValue"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/oval_label_bg"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="2"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBarTTL"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBarTTL" />
+            <SeekBar
+                android:id="@+id/seekBarDeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:progress="0"
+                app:layout_constraintEnd_toStartOf="@+id/deadlineValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deadlineTextView" />
 
-        <TextView
-            android:id="@+id/deadlineValue"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/oval_label_bg"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="2"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBarDeadline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBarDeadline" />
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/ipv6ping"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:ellipsize="marquee"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:text="Use IPv6 ping"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deadlineValue" />
 
-    </android.support.constraint.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/routeCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="marquee"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:text="-R    Record Route Option"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ipv6ping" />
 
-</ScrollView>
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/timestampCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="marquee"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
+                android:singleLine="true"
+                android:text="-T    Timestamps and Addresses"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/routeCheckBox" />
+
+            <TextView
+                android:id="@+id/countTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Count"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="@+id/seekBarCount"
+                app:layout_constraintStart_toStartOf="@+id/seekBarCount"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sizeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Packet Size"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="@+id/seekBarSize"
+                app:layout_constraintStart_toStartOf="@+id/seekBarSize"
+                app:layout_constraintTop_toBottomOf="@+id/countValue" />
+
+            <TextView
+                android:id="@+id/intervalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Interval"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="@+id/seekBarInterval"
+                app:layout_constraintStart_toStartOf="@+id/seekBarInterval"
+                app:layout_constraintTop_toBottomOf="@+id/sizeValue" />
+
+
+            <TextView
+                android:id="@+id/ttlTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Time To Live"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="@+id/seekBarTTL"
+                app:layout_constraintStart_toStartOf="@+id/seekBarTTL"
+                app:layout_constraintTop_toBottomOf="@+id/intervalValue" />
+
+            <TextView
+                android:id="@+id/deadlineTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Deadline"
+                android:textColor="@color/settings_text"
+                app:layout_constraintEnd_toEndOf="@+id/seekBarDeadline"
+                app:layout_constraintStart_toStartOf="@+id/seekBarDeadline"
+                app:layout_constraintTop_toBottomOf="@+id/ttlValue" />
+
+            <TextView
+                android:id="@+id/countValue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval_label_bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="4"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarCount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBarCount" />
+
+            <TextView
+                android:id="@+id/sizeValue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval_label_bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="64"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBarSize" />
+
+            <TextView
+                android:id="@+id/intervalValue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval_label_bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarInterval"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBarInterval" />
+
+            <TextView
+                android:id="@+id/ttlValue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval_label_bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarTTL"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBarTTL" />
+
+            <TextView
+                android:id="@+id/deadlineValue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval_label_bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarDeadline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBarDeadline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

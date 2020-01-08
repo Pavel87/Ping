@@ -11,16 +11,18 @@ import java.io.InputStreamReader;
 public final class Ping {
 
     private static boolean isStop = false;
-    private static boolean isRunning = false;
     private static Process process = null;
 
-    public static String ping(AsyncPingTask task, String command) {
+    public static String ping(AsyncPingTask task, boolean useIPv6, String command) {
         isStop = false;
-        isRunning = true;
         BufferedReader reader = null;
         try {
-            process = Runtime.getRuntime().exec(
-                    "/system/bin/ping " + command);
+            String pingAppPath = "/system/bin/ping ";
+            if (useIPv6) {
+                pingAppPath = "/system/bin/ping6 ";
+            }
+
+            process = Runtime.getRuntime().exec(pingAppPath + command);
             reader = new BufferedReader(new InputStreamReader(
                     process.getInputStream()));
             int i;
@@ -36,7 +38,6 @@ public final class Ping {
             }
 
             process.destroy();
-            isRunning = false;
             return output.toString();
 
         } catch (IOException e) {
@@ -57,7 +58,6 @@ public final class Ping {
         if (process != null) {
             process.destroy();
             isStop = true;
-            isRunning = false;
         }
     }
 

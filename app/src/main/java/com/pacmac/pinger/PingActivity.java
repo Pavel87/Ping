@@ -9,10 +9,16 @@ import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.PermissionChecker;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.content.PermissionChecker;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,6 +65,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private int deadline = Constants.PING_DEADLINE_DEFAULT;
     private boolean isRoute = Constants.PING_ROUTE_DEFAULT;
     private boolean isTimestamp = Constants.PING_TIMESTAMPS_DEFAULT;
+    private boolean useIPv6 = Constants.PING_IP_VERSION_DEFAULT;
     private String pingAddress = Constants.PING_ADDRESS_DEFAULT;
 
     private boolean isPingRunning = false;
@@ -72,6 +79,16 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ping);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         pingTextLayout = findViewById(R.id.pingTextLayout);
         ipEditText = findViewById(R.id.pingAddress);
@@ -97,6 +114,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         deadline = Utility.getIntFromPreference(getApplicationContext(), Constants.PING_DEADLINE_DEFAULT, Constants.PING_DEADLINE_PREF);
         isRoute = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_ROUTE_DEFAULT, Constants.PING_ROUTE_PREF);
         isTimestamp = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_TIMESTAMPS_DEFAULT, Constants.PING_TIMESTAMPS_PREF);
+        useIPv6 = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_IP_VERSION_DEFAULT, Constants.PING_IP_VERSION_PREF);
 
         ipEditText.clearFocus();
 
@@ -126,7 +144,11 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                         pingTextLayout.setError("Incorrect Address");
                         return;
                     } else {
-                        pingTextLayout.setError("");
+                        if (useIPv6 && Utility.validateIP(address)) {
+                            pingTextLayout.setError("Incorrect Address. Use host name or full IPv6 address.");
+                        } else {
+                            pingTextLayout.setError("");
+                        }
                     }
 
                     String routeSTR = "";
@@ -164,13 +186,16 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                     // Clear output window
                     pingOutput.setText("");
                     // Start ping
-                    new AsyncPingTask(PingActivity.this).execute(command);
+                    new AsyncPingTask(useIPv6, PingActivity.this).execute(command);
                     pingAddress = address;
                     Utility.setStringToPreference(getApplicationContext(), pingAddress, Constants.PING_ADDRESS_PREF);
                     isPingRunning = true;
                     pingBtn.setText("CANCEL");
                     exportBtn.setVisibility(View.INVISIBLE);
-                    pingOutput.setText(">> ping " + command + "\n");
+                    if (useIPv6) {
+
+                    } else
+                    pingOutput.setText(">> " + ((useIPv6) ? "ping6 " : "ping ") + command + "\n");
                 }
             }
         });
@@ -286,6 +311,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             deadline = data.getIntExtra(Constants.PING_DEADLINE_PREF, Constants.PING_DEADLINE_DEFAULT);
             isRoute = data.getBooleanExtra(Constants.PING_ROUTE_PREF, Constants.PING_ROUTE_DEFAULT);
             isTimestamp = data.getBooleanExtra(Constants.PING_TIMESTAMPS_PREF, Constants.PING_TIMESTAMPS_DEFAULT);
+            useIPv6 = data.getBooleanExtra(Constants.PING_IP_VERSION_PREF, Constants.PING_IP_VERSION_DEFAULT);
         }
     }
 
@@ -328,6 +354,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             settingsIntent.putExtra(Constants.PING_DEADLINE_PREF, deadline);
             settingsIntent.putExtra(Constants.PING_ROUTE_PREF, isRoute);
             settingsIntent.putExtra(Constants.PING_TIMESTAMPS_PREF, isTimestamp);
+            settingsIntent.putExtra(Constants.PING_IP_VERSION_PREF, useIPv6);
             startActivityForResult(settingsIntent, Constants.PING_SETTINGS_RC);
             return true;
         }

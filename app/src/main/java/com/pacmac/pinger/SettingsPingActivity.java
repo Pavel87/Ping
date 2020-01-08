@@ -2,14 +2,17 @@ package com.pacmac.pinger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class SettingsPingActivity extends AppCompatActivity {
 
@@ -25,6 +28,7 @@ public class SettingsPingActivity extends AppCompatActivity {
     private TextView ttlText = null;
     private TextView deadlineText = null;
 
+    private AppCompatCheckBox ipv6pingBox = null;
     private AppCompatCheckBox routeCheckbox = null;
     private AppCompatCheckBox tsCheckbox = null;
 
@@ -35,6 +39,7 @@ public class SettingsPingActivity extends AppCompatActivity {
     private int deadline = 0;
     private boolean isRoute = false;
     private boolean isTimestampAndAddress = false;
+    private boolean useIPv6 = false;
 
     private Object syncCheckBoxes = new Object();
 
@@ -43,6 +48,10 @@ public class SettingsPingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_ping);
         getSupportActionBar().setTitle(getString(R.string.config_name));
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         sizeSB = findViewById(R.id.seekBarSize);
         countSB = findViewById(R.id.seekBarCount);
@@ -56,6 +65,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         ttlText = findViewById(R.id.ttlValue);
         deadlineText = findViewById(R.id.deadlineValue);
 
+        ipv6pingBox = findViewById(R.id.ipv6ping);
         routeCheckbox = findViewById(R.id.routeCheckBox);
         tsCheckbox = findViewById(R.id.timestampCheckBox);
 
@@ -152,6 +162,14 @@ public class SettingsPingActivity extends AppCompatActivity {
             }
         });
 
+        ipv6pingBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                synchronized (syncCheckBoxes) {
+                    useIPv6 = isChecked;
+                }
+            }
+        });
         routeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -204,6 +222,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         data.putExtra(Constants.PING_DEADLINE_PREF, deadline);
         data.putExtra(Constants.PING_TIMESTAMPS_PREF, isTimestampAndAddress);
         data.putExtra(Constants.PING_ROUTE_PREF, isRoute);
+        data.putExtra(Constants.PING_IP_VERSION_PREF, useIPv6);
 
         setResult(RESULT_OK, data);
         super.onBackPressed();
@@ -217,6 +236,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         Utility.setIntToPreference(context, deadline, Constants.PING_DEADLINE_PREF);
         Utility.setBooleanToPreference(context, isTimestampAndAddress, Constants.PING_TIMESTAMPS_PREF);
         Utility.setBooleanToPreference(context, isRoute, Constants.PING_ROUTE_PREF);
+        Utility.setBooleanToPreference(context, useIPv6, Constants.PING_IP_VERSION_PREF);
     }
 
     private void setStartValues(Intent intent) {
@@ -228,6 +248,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         deadline = intent.getIntExtra(Constants.PING_DEADLINE_PREF, Constants.PING_DEADLINE_DEFAULT);
         isRoute = intent.getBooleanExtra(Constants.PING_ROUTE_PREF, Constants.PING_ROUTE_DEFAULT);
         isTimestampAndAddress = intent.getBooleanExtra(Constants.PING_TIMESTAMPS_PREF, Constants.PING_TIMESTAMPS_DEFAULT);
+        useIPv6 = intent.getBooleanExtra(Constants.PING_IP_VERSION_PREF, Constants.PING_IP_VERSION_DEFAULT);
 
         //error
         if (isRoute && isTimestampAndAddress) {
@@ -263,6 +284,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         deadlineSB.setProgress(deadline);
         routeCheckbox.setChecked(isRoute);
         tsCheckbox.setChecked(isTimestampAndAddress);
+        ipv6pingBox.setChecked(useIPv6);
     }
 
 

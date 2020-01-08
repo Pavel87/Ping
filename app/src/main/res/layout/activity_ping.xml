@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@drawable/main_bg"
-                                             tools:context=".PingActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    tools:context=".PingActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/controlView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/control_bg"
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pingTextLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,8 +49,8 @@
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textSize="14sp"/>
-        </android.support.design.widget.TextInputLayout>
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/pingBtn"
@@ -69,8 +69,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!--<android.support.constraint.ConstraintLayout-->
@@ -194,7 +194,6 @@
 
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ipLocationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -203,13 +202,14 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:padding="16dp"
         android:background="@drawable/control_bg"
         android:elevation="10dp"
-        android:orientation="horizontal"
         android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="16dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/controlView">
@@ -227,7 +227,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/android"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/phoneIP"
@@ -239,12 +239,11 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/phoneIcon"
                 app:layout_constraintStart_toStartOf="@+id/phoneIcon"
-                app:layout_constraintTop_toBottomOf="@+id/phoneIcon"/>
+                app:layout_constraintTop_toBottomOf="@+id/phoneIcon" />
 
         </LinearLayout>
 
         <ProgressBar
-            android:visibility="gone"
             android:id="@+id/progressLocalNet"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
@@ -255,16 +254,17 @@
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:progress="100"/>
+            android:progress="100"
+            android:visibility="gone" />
 
 
         <LinearLayout
             android:id="@+id/routerView"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/routerIcon"
@@ -273,19 +273,19 @@
                 android:src="@drawable/router"
                 app:layout_constraintEnd_toStartOf="@+id/serverIcon"
                 app:layout_constraintStart_toEndOf="@+id/phoneIcon"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/routerIP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto"
                 android:text="UNKNOWN"
                 android:textSize="12sp"
-                android:fontFamily="@font/roboto"
                 app:layout_constraintEnd_toEndOf="@+id/routerIcon"
                 app:layout_constraintStart_toStartOf="@+id/routerIcon"
-                app:layout_constraintTop_toBottomOf="@+id/routerIcon"/>
+                app:layout_constraintTop_toBottomOf="@+id/routerIcon" />
         </LinearLayout>
 
         <ProgressBar
@@ -293,23 +293,22 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:progress="100"/>
+            android:progress="100"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/serverView"
             android:layout_width="wrap_content"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            >
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/serverIcon"
@@ -317,19 +316,19 @@
                 android:layout_height="30dp"
                 android:src="@drawable/server"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/serverIP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto"
                 android:text="192.168.1.2"
                 android:textSize="12sp"
-                android:fontFamily="@font/roboto"
                 app:layout_constraintEnd_toEndOf="@+id/serverIcon"
                 app:layout_constraintStart_toStartOf="@+id/serverIcon"
-                app:layout_constraintTop_toBottomOf="@+id/serverIcon"/>
+                app:layout_constraintTop_toBottomOf="@+id/serverIcon" />
 
         </LinearLayout>
 
@@ -349,7 +348,7 @@
         android:background="@drawable/ping_bg"
         android:elevation="5dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -362,7 +361,7 @@
             android:padding="8dp"
             android:text=""
             android:textColor="@color/colorAccent"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </ScrollView>
 
@@ -377,6 +376,18 @@
         android:elevation="15dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/mScrollView"
-        app:layout_constraintEnd_toEndOf="@+id/mScrollView"/>
+        app:layout_constraintEnd_toEndOf="@+id/mScrollView" />
 
-</android.support.constraint.ConstraintLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="FULL_BANNER"
+        app:adUnitId="@string/banner_id_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
