@@ -2,21 +2,33 @@ package com.pacmac.pinger;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.view.Display;
+
+import com.google.android.gms.ads.AdSize;
+
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -132,22 +144,52 @@ public class Utility {
         }
     }
 
-    protected static void shareResult(Activity activity, String pingAddress, String output) {
+    public static void sendShareIntent(Context context, String pingAddress, String output) {
+
+        Calendar calendar = Calendar.getInstance();
+
+        File file = new File(context.getCacheDir(), String.format(Locale.ENGLISH,
+                "ping_result_%d%d%d_%d-%d.txt",
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+
         try {
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-            sharingIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            sharingIntent.setType("text/plain");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Ping for: " + pingAddress);
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, output);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity.getApplicationContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            } else {
-                activity.startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        } catch (Exception e) {
+            file.createNewFile();
+
+            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath(), false));
+            out.write(output);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+        intentShareFile.putExtra(android.content.Intent.EXTRA_SUBJECT, "Ping for: " + pingAddress);
+
+        intentShareFile.putExtra(Intent.EXTRA_TEXT, "Ping results are attatched in " + file.getName());
+
+        intentShareFile.setType(URLConnection.guessContentTypeFromName(file.getName()));
+
+        Uri fileUri = null;
+        try {
+            fileUri = FileProvider.getUriForFile(context, "com.pacmac.pinger.fileprovider", file);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
+        ClipData clipData = new ClipData(new ClipDescription("Ping Result",
+                new String[]{ClipDescription.MIMETYPE_TEXT_URILIST}), new ClipData.Item(fileUri));
+        intentShareFile.setClipData(clipData);
+
+        intentShareFile.putExtra(Intent.EXTRA_STREAM, fileUri);
+
+        // Grant temporary read permission to the content URI
+        intentShareFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intentShareFile.setType("application/*");
+        context.startActivity(Intent.createChooser(intentShareFile, "Share File"));
     }
+
 
     protected static boolean saveResultToSD(String output, String address) {
         boolean result = false;
@@ -179,7 +221,7 @@ public class Utility {
             result = true;
         } catch (Exception e) {
             try {
-                if(out != null) {
+                if (out != null) {
                     out.flush();
                     out.close();
                 }
@@ -216,5 +258,4 @@ public class Utility {
         // No explanation needed, we can request the permission.
         ActivityCompat.requestPermissions(activity, new String[]{permission}, Constants.PING_WRITE_EXT_STORAGE_RC);
     }
-
 }

@@ -12,13 +12,16 @@ import android.os.Bundle;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.core.content.PermissionChecker;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -71,9 +74,13 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private boolean isPingRunning = false;
     private boolean isAppPaused = false;
 
+    private boolean shouldShowFullScreenAd = false;
+
     private String ipAddress = "UNKNOWN";
     private String gatewayIPAddress = "UNKNOWN";
     private String remoteIPAddress = "UNKNOWN";
+
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +96,9 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_id_2));
 
         pingTextLayout = findViewById(R.id.pingTextLayout);
         ipEditText = findViewById(R.id.pingAddress);
@@ -195,7 +205,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                     if (useIPv6) {
 
                     } else
-                    pingOutput.setText(">> " + ((useIPv6) ? "ping6 " : "ping ") + command + "\n");
+                        pingOutput.setText(">> " + ((useIPv6) ? "ping6 " : "ping ") + command + "\n");
                 }
             }
         });
@@ -243,7 +253,9 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.shareResult(PingActivity.this, pingAddress, pingOutput.getText().toString());
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                shouldShowFullScreenAd = true;
+                Utility.sendShareIntent(PingActivity.this, pingAddress, pingOutput.getText().toString());
             }
         });
 
@@ -298,6 +310,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PING_SETTINGS_RC) {
 
             if (data == null) {
@@ -336,7 +349,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 outputScrollView.smoothScrollTo(0, pingOutput.getBottom());
             }
         });
-        if(networkMonitor.isWIFIConnected()) {
+        if (networkMonitor.isWIFIConnected()) {
             getIPAddress(line);
         }
     }
@@ -375,6 +388,13 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         isAppPaused = false;
         networkMonitor.registerConnectivityReceiver(getApplicationContext());
         onWiFiConnectionChanged(networkMonitor.isWiFiConnected(getApplicationContext()));
+
+        if (shouldShowFullScreenAd) {
+            shouldShowFullScreenAd = false;
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            }
+        }
     }
 
     @Override
@@ -480,7 +500,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 if (m.find()) {
                     remoteIPAddress = m.group(1);
                     serverIP.setText(remoteIPAddress);
-                    if(!remoteIPAddress.equals(gatewayIPAddress)) {
+                    if (!remoteIPAddress.equals(gatewayIPAddress)) {
                         setInternetNetworkVisible(true);
                     }
                 }
