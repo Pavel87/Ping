@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:adSize="FULL_BANNER"
+        app:adSize="BANNER"
         app:adUnitId="@string/banner_id_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
