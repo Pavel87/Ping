@@ -6,8 +6,8 @@ android {
         applicationId "com.pacmac.pinger"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 13
-        versionName "1.6"
+        versionCode 14
+        versionName "1.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -43,3 +43,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+//key alias "icmp ping"

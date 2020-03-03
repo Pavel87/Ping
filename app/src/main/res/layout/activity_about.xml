@@ -42,7 +42,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Version:"
+                android:text="@string/version"
                 app:layout_constraintEnd_toStartOf="@+id/version"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:text="1.0"
+                android:text="X.Y"
                 app:layout_constraintBottom_toBottomOf="@+id/versionLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/versionLabel" />
@@ -100,7 +100,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Send Feedbck"
+                android:text="@string/send_feedbck"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:theme="@style/PrimaryFlatButton"

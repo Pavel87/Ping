@@ -33,6 +33,8 @@
     <string name="timestamp_addresses">Timestamps and Addresses</string>
     <string name="enter_ip_or_url_address">Enter IP or URL address</string>
     <string name="ping">Ping</string>
+    <string name="version">Version:</string>
+    <string name="send_feedbck">Send Feedbck</string>
 
     <!--    <string name="banner_id_1">ca-app-pub-9192035457575047/7948757499</string>-->
 <!--    <string name="banner_id_2">ca-app-pub-9192035457575047/6121790065</string>-->
