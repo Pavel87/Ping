@@ -9,19 +9,6 @@ import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
-
-import androidx.core.content.PermissionChecker;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,14 +19,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.PermissionChecker;
+import androidx.core.widget.NestedScrollView;
 
 public class PingActivity extends AppCompatActivity implements PingListener, ExportListener, NetworkMonitor.NetworkMonitorCallback {
 
@@ -49,7 +50,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private EditText ipEditText = null;
     private Button pingBtn = null;
     private TextView pingOutput = null;
-    private ScrollView outputScrollView = null;
+    private NestedScrollView outputScrollView = null;
     private TextInputLayout pingTextLayout = null;
     private View exportBtn = null;
     private PopupWindow popupWindow = null;
