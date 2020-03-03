@@ -258,4 +258,10 @@ public class Utility {
         // No explanation needed, we can request the permission.
         ActivityCompat.requestPermissions(activity, new String[]{permission}, Constants.PING_WRITE_EXT_STORAGE_RC);
     }
+
+    public static void transitionLeftToRight(Activity activity) {
+        if (activity != null) {
+            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+    }
 }

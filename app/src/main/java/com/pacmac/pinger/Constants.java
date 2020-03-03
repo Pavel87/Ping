@@ -18,6 +18,7 @@ public class Constants {
     protected final static int PING_INTERVAL_DEFAULT = 5; // getIntervalFromProgress(5) == 1 second
     protected final static int PING_TTL_DEFAULT = 63; // getTTLFromProgress(63) == 64 ttl
     protected final static int PING_DEADLINE_DEFAULT = 0;
+    protected final static int PING_TIMEOUT_DEFAULT = 0;
     protected final static boolean PING_TIMESTAMPS_DEFAULT = false;
     protected final static boolean PING_ROUTE_DEFAULT = false;
     protected final static boolean PING_IP_VERSION_DEFAULT = false;
@@ -30,6 +31,7 @@ public class Constants {
     protected final static String PING_INTERVAL_PREF = "i";
     protected final static String PING_TTL_PREF = "t";
     protected final static String PING_DEADLINE_PREF = "w";
+    protected final static String PING_TIMEOUT_PREF = "W";
     protected final static String PING_TIMESTAMPS_PREF = "T";
     protected final static String PING_ROUTE_PREF = "R";
     protected final static String PING_ADDRESS_PREF = "ADDRESS";

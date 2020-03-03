@@ -21,12 +21,14 @@ public class SettingsPingActivity extends AppCompatActivity {
     private SeekBar intervalSB = null;
     private SeekBar ttlSB = null;
     private SeekBar deadlineSB = null;
+    private SeekBar timeoutSB = null;
 
     private TextView countText = null;
     private TextView sizeText = null;
     private TextView intervalText = null;
     private TextView ttlText = null;
     private TextView deadlineText = null;
+    private TextView timeoutText = null;
 
     private AppCompatCheckBox ipv6pingBox = null;
     private AppCompatCheckBox routeCheckbox = null;
@@ -37,6 +39,7 @@ public class SettingsPingActivity extends AppCompatActivity {
     private int interval = 0;
     private int ttl = 0;
     private int deadline = 0;
+    private int timeout = 0;
     private boolean isRoute = false;
     private boolean isTimestampAndAddress = false;
     private boolean useIPv6 = false;
@@ -58,12 +61,15 @@ public class SettingsPingActivity extends AppCompatActivity {
         intervalSB = findViewById(R.id.seekBarInterval);
         ttlSB = findViewById(R.id.seekBarTTL);
         deadlineSB = findViewById(R.id.seekBarDeadline);
+        timeoutSB = findViewById(R.id.seekBarTimeout);
 
         countText = findViewById(R.id.countValue);
         sizeText = findViewById(R.id.sizeValue);
         intervalText = findViewById(R.id.intervalValue);
         ttlText = findViewById(R.id.ttlValue);
         deadlineText = findViewById(R.id.deadlineValue);
+        timeoutText = findViewById(R.id.timeoutValue);
+
 
         ipv6pingBox = findViewById(R.id.ipv6ping);
         routeCheckbox = findViewById(R.id.routeCheckBox);
@@ -162,6 +168,27 @@ public class SettingsPingActivity extends AppCompatActivity {
             }
         });
 
+        timeoutSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                timeout = progress;
+
+                if (timeout != 0) {
+                    timeoutText.setText(String.valueOf(timeout));
+                } else {
+                    timeoutText.setText(Constants.INFINITY);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
         ipv6pingBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -220,12 +247,14 @@ public class SettingsPingActivity extends AppCompatActivity {
         data.putExtra(Constants.PING_INTERVAL_PREF, interval);
         data.putExtra(Constants.PING_TTL_PREF, ttl);
         data.putExtra(Constants.PING_DEADLINE_PREF, deadline);
+        data.putExtra(Constants.PING_TIMEOUT_PREF, timeout);
         data.putExtra(Constants.PING_TIMESTAMPS_PREF, isTimestampAndAddress);
         data.putExtra(Constants.PING_ROUTE_PREF, isRoute);
         data.putExtra(Constants.PING_IP_VERSION_PREF, useIPv6);
 
         setResult(RESULT_OK, data);
         super.onBackPressed();
+        Utility.transitionLeftToRight(this);
     }
 
     private void saveSettings(Context context) {
@@ -234,6 +263,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         Utility.setIntToPreference(context, interval, Constants.PING_INTERVAL_PREF);
         Utility.setIntToPreference(context, ttl, Constants.PING_TTL_PREF);
         Utility.setIntToPreference(context, deadline, Constants.PING_DEADLINE_PREF);
+        Utility.setIntToPreference(context, timeout, Constants.PING_TIMEOUT_PREF);
         Utility.setBooleanToPreference(context, isTimestampAndAddress, Constants.PING_TIMESTAMPS_PREF);
         Utility.setBooleanToPreference(context, isRoute, Constants.PING_ROUTE_PREF);
         Utility.setBooleanToPreference(context, useIPv6, Constants.PING_IP_VERSION_PREF);
@@ -246,6 +276,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         interval = intent.getIntExtra(Constants.PING_INTERVAL_PREF, Constants.PING_INTERVAL_DEFAULT);
         ttl = intent.getIntExtra(Constants.PING_TTL_PREF, Constants.PING_TTL_DEFAULT);
         deadline = intent.getIntExtra(Constants.PING_DEADLINE_PREF, Constants.PING_DEADLINE_DEFAULT);
+        timeout = intent.getIntExtra(Constants.PING_TIMEOUT_PREF, Constants.PING_TIMEOUT_DEFAULT);
         isRoute = intent.getBooleanExtra(Constants.PING_ROUTE_PREF, Constants.PING_ROUTE_DEFAULT);
         isTimestampAndAddress = intent.getBooleanExtra(Constants.PING_TIMESTAMPS_PREF, Constants.PING_TIMESTAMPS_DEFAULT);
         useIPv6 = intent.getBooleanExtra(Constants.PING_IP_VERSION_PREF, Constants.PING_IP_VERSION_DEFAULT);
@@ -272,6 +303,11 @@ public class SettingsPingActivity extends AppCompatActivity {
         } else {
             deadlineText.setText(String.valueOf(deadline));
         }
+        if (timeout == 0) {
+            timeoutText.setText(Constants.INFINITY);
+        } else {
+            timeoutText.setText(String.valueOf(timeout));
+        }
 
         sizeText.setText(String.valueOf(Utility.getPacketSizeFromProgress(size)));
         showIntervalValue(Utility.getIntervalFromProgress(interval));
@@ -282,6 +318,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         intervalSB.setProgress(interval);
         ttlSB.setProgress(ttl);
         deadlineSB.setProgress(deadline);
+        timeoutSB.setProgress(timeout);
         routeCheckbox.setChecked(isRoute);
         tsCheckbox.setChecked(isTimestampAndAddress);
         ipv6pingBox.setChecked(useIPv6);
@@ -304,6 +341,7 @@ public class SettingsPingActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

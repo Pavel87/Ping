@@ -12,24 +12,27 @@
     <string name="ipAddress2">9.9.9.9\n192.168.2.1</string>
     <string name="urlAddress1">URL Example </string>
     <string name="urlAddress2">www.google.com\ngoogle.com</string>
-    <string name="count">COUNT</string>
-    <string name="size">PACKET SIZE</string>
-    <string name="interval">INTERVAL</string>
-    <string name="ttl">TTL</string>
-    <string name="deadline">DEADLINE</string>
-    <string name="route">ROUTE RECORD</string>
-    <string name="tsAndAddress">TIMESTAMP AND ADDRESS</string>
     <string name="feedback">ICMP Ping - Feedback</string>
-    <string name="deadline_description">Parameter defines time interval in seconds the ping will run for.</string>
+    <string name="deadline_description">Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received.</string>
+    <string name="timeout_description">Time to wait for a response of single ping, in seconds.</string>
     <string name="count_description">Defines amount of packet sent.</string>
     <string name="size_description">The number of data bytes to be sent. The default is 56, which translates into 64 ICMP data bytes when combined with the 8 bytes of ICMP header data.</string>
     <string name="interval_description">Set an interval of wait seconds between sending each packet. default=1 second. The fastest interval is 0.2 seconds.</string>
     <string name="ttl_description">Value of an IP packet represents the maximum number of IP routers that the packet can go through before being thrown away..</string>
     <string name="route_description">Record route(IPv4 only). Includes the RECORD_ROUTE option in the ECHO_REQUEST packet and display the route buffer on returned packets. Note that the IP header is only large enough for nine such routes. Many hosts ignore or discard this option. NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
     <string name="timestamp_description">Set special IP timestamp options \'tsandaddr\' (timestamps and addresses). NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
-    <string name="about_app">Application access system ping with several configuration options. Ping functionality is similar to Unix.\n\nDeveloped by pacmac 2018.</string>
+    <string name="about_app">Application access system ping with several configuration options. Ping functionality is similar to Unix.\n\nDeveloped by pacmac 2020.</string>
+    <string name="ping_count">Count</string>
+    <string name="packet_size">Packet Size</string>
+    <string name="ping_interval">Interval</string>
+    <string name="time_to_live">Time To Live</string>
+    <string name="ping_deadline">Deadline</string>
+    <string name="ping_timeout">Timeout</string>
+    <string name="use_ipv6_ping">Use IPv6 Ping</string>
+    <string name="route_option">Record Route Option</string>
+    <string name="timestamp_addresses">Timestamps and Addresses</string>
 
-<!--    <string name="banner_id_1">ca-app-pub-9192035457575047/7948757499</string>-->
+    <!--    <string name="banner_id_1">ca-app-pub-9192035457575047/7948757499</string>-->
 <!--    <string name="banner_id_2">ca-app-pub-9192035457575047/6121790065</string>-->
 <!--    <string name="banner_id_3">ca-app-pub-9192035457575047/6133398357</string>-->
 <!--    <string name="interstitial_id_1">ca-app-pub-9192035457575047/3427058558</string>-->

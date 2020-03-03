@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg">
+    android:layout_gravity="center"
+    android:background="@drawable/main_bg"
+    android:gravity="center"
+    android:orientation="vertical">
 
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        app:adUnitId="@string/banner_id_3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarStyle="outsideInset"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,11 +36,7 @@
                 android:id="@+id/seekBarCount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:progress="4"
                 app:layout_constraintEnd_toStartOf="@+id/countValue"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,11 +46,7 @@
                 android:id="@+id/seekBarSize"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:progress="64"
                 app:layout_constraintEnd_toStartOf="@+id/sizeValue"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,11 +56,7 @@
                 android:id="@+id/seekBarInterval"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:progress="2"
                 app:layout_constraintEnd_toStartOf="@+id/intervalValue"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +66,8 @@
                 android:id="@+id/seekBarTTL"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:progress="52"
                 app:layout_constraintEnd_toStartOf="@+id/ttlValue"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,45 +77,49 @@
                 android:id="@+id/seekBarDeadline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:progress="0"
                 app:layout_constraintEnd_toStartOf="@+id/deadlineValue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/deadlineTextView" />
 
+            <SeekBar
+                android:id="@+id/seekBarTimeout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:progress="0"
+                app:layout_constraintEnd_toStartOf="@+id/timeoutValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeoutTextView" />
+
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/ipv6ping"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 android:ellipsize="marquee"
                 android:paddingLeft="16dp"
                 android:singleLine="true"
-                android:text="Use IPv6 ping"
-                android:textColor="@color/settings_text"
+                android:text="@string/use_ipv6_ping"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/text_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deadlineValue" />
+                app:layout_constraintTop_toBottomOf="@+id/timeoutValue" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/routeCheckBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:ellipsize="marquee"
                 android:paddingLeft="16dp"
                 android:singleLine="true"
-                android:text="-R    Record Route Option"
-                android:textColor="@color/settings_text"
+                android:text="@string/route_option"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/text_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,60 +129,37 @@
                 android:id="@+id/timestampCheckBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:ellipsize="marquee"
                 android:paddingStart="16dp"
                 android:paddingLeft="16dp"
                 android:singleLine="true"
-                android:text="-T    Timestamps and Addresses"
-                android:textColor="@color/settings_text"
+                android:text="@string/timestamp_addresses"
+                android:textColor="@color/text_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/routeCheckBox" />
 
             <TextView
                 android:id="@+id/countTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="Count"
-                android:textColor="@color/settings_text"
+                style="@style/SettingsTitle"
+                android:text="@string/ping_count"
                 app:layout_constraintEnd_toEndOf="@+id/seekBarCount"
                 app:layout_constraintStart_toStartOf="@+id/seekBarCount"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/sizeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="Packet Size"
-                android:textColor="@color/settings_text"
+                style="@style/SettingsTitle"
+                android:text="@string/packet_size"
                 app:layout_constraintEnd_toEndOf="@+id/seekBarSize"
                 app:layout_constraintStart_toStartOf="@+id/seekBarSize"
                 app:layout_constraintTop_toBottomOf="@+id/countValue" />
 
             <TextView
                 android:id="@+id/intervalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="Interval"
-                android:textColor="@color/settings_text"
+                style="@style/SettingsTitle"
+                android:text="@string/ping_interval"
                 app:layout_constraintEnd_toEndOf="@+id/seekBarInterval"
                 app:layout_constraintStart_toStartOf="@+id/seekBarInterval"
                 app:layout_constraintTop_toBottomOf="@+id/sizeValue" />
@@ -206,29 +167,27 @@
 
             <TextView
                 android:id="@+id/ttlTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Time To Live"
-                android:textColor="@color/settings_text"
+                style="@style/SettingsTitle"
+                android:text="@string/time_to_live"
                 app:layout_constraintEnd_toEndOf="@+id/seekBarTTL"
                 app:layout_constraintStart_toStartOf="@+id/seekBarTTL"
                 app:layout_constraintTop_toBottomOf="@+id/intervalValue" />
 
             <TextView
                 android:id="@+id/deadlineTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Deadline"
-                android:textColor="@color/settings_text"
+                style="@style/SettingsTitle"
+                android:text="@string/ping_deadline"
                 app:layout_constraintEnd_toEndOf="@+id/seekBarDeadline"
                 app:layout_constraintStart_toStartOf="@+id/seekBarDeadline"
                 app:layout_constraintTop_toBottomOf="@+id/ttlValue" />
+
+            <TextView
+                android:id="@+id/timeoutTextView"
+                style="@style/SettingsTitle"
+                android:text="@string/ping_timeout"
+                app:layout_constraintEnd_toEndOf="@+id/seekBarTimeout"
+                app:layout_constraintStart_toStartOf="@+id/seekBarTimeout"
+                app:layout_constraintTop_toBottomOf="@+id/deadlineValue" />
 
             <TextView
                 android:id="@+id/countValue"
@@ -305,9 +264,33 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/seekBarDeadline" />
 
+            <TextView
+                android:id="@+id/timeoutValue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval_label_bg"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/seekBarTimeout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/seekBarTimeout" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_id_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

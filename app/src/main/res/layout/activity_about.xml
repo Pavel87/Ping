@@ -16,7 +16,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:elevation="10dp"
+        app:elevation="10dp"
         android:orientation="vertical"
         android:scrollbars="none"
         android:scrollbarAlwaysDrawVerticalTrack="false"
@@ -68,6 +68,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/app_name"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/text_dark"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -114,6 +116,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 app:adSize="BANNER"
+                android:layout_marginTop="8dp"
                 app:adUnitId="@string/banner_id_3"
                 app:layout_constraintTop_toBottomOf="@+id/feedbackBtn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,6 +144,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:fontFamily="@font/nunito"
                 android:text="@string/address_format"
                 android:textAllCaps="true"
                 android:textSize="18sp"
@@ -161,8 +165,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/ipAddress1"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/text_dark"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addressFormat" />
@@ -190,9 +195,10 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/text_dark"
                 android:text="@string/urlAddress1"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ipFormat2" />
@@ -234,6 +240,7 @@
                 android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:text="@string/options"
+                android:fontFamily="@font/nunito"
                 android:textAllCaps="true"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -243,14 +250,8 @@
 
             <TextView
                 android:id="@+id/countLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/count"
+                style="@style/AboutOptionTitles"
+                android:text="@string/ping_count"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/optionsLabel" />
@@ -270,14 +271,8 @@
 
             <TextView
                 android:id="@+id/sizeLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/size"
+                style="@style/AboutOptionTitles"
+                android:text="@string/packet_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/countdescription" />
@@ -297,14 +292,8 @@
 
             <TextView
                 android:id="@+id/intervalLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/size"
+                style="@style/AboutOptionTitles"
+                android:text="@string/packet_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sizedescription" />
@@ -325,14 +314,8 @@
 
             <TextView
                 android:id="@+id/ttlLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/ttl"
+                style="@style/AboutOptionTitles"
+                android:text="@string/time_to_live"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/intervalDescription" />
@@ -353,14 +336,8 @@
 
             <TextView
                 android:id="@+id/deadlineLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/deadline"
+                style="@style/AboutOptionTitles"
+                android:text="@string/ping_deadline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ttlDescription" />
@@ -378,20 +355,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/deadlineLabel" />
 
+            <TextView
+                android:id="@+id/timeoutLabel"
+                style="@style/AboutOptionTitles"
+                android:text="@string/ping_timeout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deadlineDescription" />
 
             <TextView
-                android:id="@+id/routeLabel"
+                android:id="@+id/timeoutDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/route"
+                android:text="@string/timeout_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deadlineDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/timeoutLabel" />
+
+
+            <TextView
+                android:id="@+id/routeLabel"
+                style="@style/AboutOptionTitles"
+                android:text="@string/route_option"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeoutDescription" />
 
             <TextView
                 android:id="@+id/routeDescription"
@@ -408,14 +400,8 @@
 
             <TextView
                 android:id="@+id/timestampLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/tsAndAddress"
+                style="@style/AboutOptionTitles"
+                android:text="@string/timestamp_addresses"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/routeDescription" />
@@ -433,6 +419,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/timestampLabel" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                app:adSize="BANNER"
+                app:adUnitId="@string/banner_id_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timestampDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

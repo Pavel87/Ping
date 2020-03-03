@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,6 +67,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private int interval = Constants.PING_INTERVAL_DEFAULT;
     private int ttl = Constants.PING_TTL_DEFAULT;
     private int deadline = Constants.PING_DEADLINE_DEFAULT;
+    private int timeout = Constants.PING_TIMEOUT_DEFAULT;
     private boolean isRoute = Constants.PING_ROUTE_DEFAULT;
     private boolean isTimestamp = Constants.PING_TIMESTAMPS_DEFAULT;
     private boolean useIPv6 = Constants.PING_IP_VERSION_DEFAULT;
@@ -122,6 +124,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         interval = Utility.getIntFromPreference(getApplicationContext(), Constants.PING_INTERVAL_DEFAULT, Constants.PING_INTERVAL_PREF);
         ttl = Utility.getIntFromPreference(getApplicationContext(), Constants.PING_TTL_DEFAULT, Constants.PING_TTL_PREF);
         deadline = Utility.getIntFromPreference(getApplicationContext(), Constants.PING_DEADLINE_DEFAULT, Constants.PING_DEADLINE_PREF);
+        timeout = Utility.getIntFromPreference(getApplicationContext(), Constants.PING_TIMEOUT_DEFAULT, Constants.PING_TIMEOUT_PREF);
         isRoute = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_ROUTE_DEFAULT, Constants.PING_ROUTE_PREF);
         isTimestamp = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_TIMESTAMPS_DEFAULT, Constants.PING_TIMESTAMPS_PREF);
         useIPv6 = Utility.getBooleanFromPreference(getApplicationContext(), Constants.PING_IP_VERSION_DEFAULT, Constants.PING_IP_VERSION_PREF);
@@ -164,13 +167,17 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                     String routeSTR = "";
                     String timestampSTR = "";
                     String deadlineSTR = "";
+                    String timeoutSTR = "";
                     String countSTR = "";
-                    String sizeSTR = "-s " + String.valueOf(Utility.getPacketSizeFromProgress(size));
+                    String sizeSTR = "-s " + Utility.getPacketSizeFromProgress(size);
                     if (count != 0) {
-                        countSTR = "-c " + String.valueOf(count);
+                        countSTR = "-c " + count;
                     }
                     if (deadline != 0) {
-                        deadlineSTR = "-w " + String.valueOf(deadline);
+                        deadlineSTR = "-w " + deadline;
+                    }
+                    if (timeout != 0) {
+                        timeoutSTR = "-W " + timeout;
                     }
                     if (isRoute && isTimestamp) {
                         isRoute = false;
@@ -181,14 +188,15 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                         timestampSTR = "-T tsandaddr";
                     }
 
-                    String intervalSTR = "-i " + String.format("%.1f", Utility.getIntervalFromProgress(interval));
-                    String ttlSTR = "-t " + String.valueOf(Utility.getTTLFromProgress(ttl));
+                    String intervalSTR = "-i " + String.format(Locale.ENGLISH, "%.1f", Utility.getIntervalFromProgress(interval));
+                    String ttlSTR = "-t " + Utility.getTTLFromProgress(ttl);
 
                     String command = sizeSTR
                             + " " + countSTR
                             + " " + intervalSTR
                             + " " + ttlSTR
                             + " " + deadlineSTR
+                            + " " + timeoutSTR
                             + " " + routeSTR
                             + " " + timestampSTR
                             + " " + address;
@@ -322,6 +330,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             interval = data.getIntExtra(Constants.PING_INTERVAL_PREF, Constants.PING_INTERVAL_DEFAULT);
             ttl = data.getIntExtra(Constants.PING_TTL_PREF, Constants.PING_TTL_DEFAULT);
             deadline = data.getIntExtra(Constants.PING_DEADLINE_PREF, Constants.PING_DEADLINE_DEFAULT);
+            timeout = data.getIntExtra(Constants.PING_TIMEOUT_PREF, Constants.PING_TIMEOUT_DEFAULT);
             isRoute = data.getBooleanExtra(Constants.PING_ROUTE_PREF, Constants.PING_ROUTE_DEFAULT);
             isTimestamp = data.getBooleanExtra(Constants.PING_TIMESTAMPS_PREF, Constants.PING_TIMESTAMPS_DEFAULT);
             useIPv6 = data.getBooleanExtra(Constants.PING_IP_VERSION_PREF, Constants.PING_IP_VERSION_DEFAULT);
@@ -365,6 +374,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             settingsIntent.putExtra(Constants.PING_INTERVAL_PREF, interval);
             settingsIntent.putExtra(Constants.PING_TTL_PREF, ttl);
             settingsIntent.putExtra(Constants.PING_DEADLINE_PREF, deadline);
+            settingsIntent.putExtra(Constants.PING_TIMEOUT_PREF, timeout);
             settingsIntent.putExtra(Constants.PING_ROUTE_PREF, isRoute);
             settingsIntent.putExtra(Constants.PING_TIMESTAMPS_PREF, isTimestamp);
             settingsIntent.putExtra(Constants.PING_IP_VERSION_PREF, useIPv6);

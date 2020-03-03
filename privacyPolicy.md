@@ -7,15 +7,6 @@ If you choose to use my Service, then you agree to the collection and use of inf
 
 The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at <u>https://github.com/Pavel87/Ping/blob/master/t&c.md</u>
 
-####Information Collection and Use
-
-Tutela Technologies Ltd. collects data relating to your use of our apps, other apps and your device, in a pseudonymized manner, that may include (a combination of) Personal Data elements, such as:
-######Location
-######Wireless network performance, usage, and identifiers
-Pseudonymous data is shared with wireless service providers and other third parties who use it to analyze aggregate consumer mobile trends and improve your wireless networks. Outside of GDPR participating countries, mobile advertiser ID may be shared for network marketing and advertising purposes in accordance with the Digital Advertising Alliance principles. No data is stored by Tutela for longer than 12 months.
-
-For further information about Tutela’s data practices, including technical and organisational measures to ensure that personal data are not attributed to an identifiable natural person, please see the Privacy Charter. To opt out of data sharing with Tutela, please utilize the opt-out measures provided in the privacy statement, contact <u>data.protection.officer@tutela.com</u>, or contact us at <u>pacmac.dev@gmail.com</u>.
-
 ####Security
 
 I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
