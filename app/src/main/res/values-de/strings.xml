@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ICMP Ping</string>
     <string name="config_name">ICMP Ping Configuration</string>
@@ -34,7 +35,7 @@
     <string name="enter_ip_or_url_address">Enter IP or URL address</string>
     <string name="ping">Ping</string>
     <string name="version">Version:</string>
-    <string name="send_feedbck">Send Feedbck</string>
+    <string name="send_feedbck">Send Feedback</string>
     <string name="incorrect_address">Incorrect Address</string>
     <string name="incorrect_address2">Use host name or full IPv6 address.</string>
     <string name="cancel">CANCEL</string>
@@ -45,10 +46,5 @@
     <string name="exported_failed">Ping log not exported due to ERROR.</string>
     <string name="exported_permitted">Export to SD enabled.</string>
 
-
-    <!--    <string name="banner_id_1">ca-app-pub-9192035457575047/7948757499</string>-->
-<!--    <string name="banner_id_2">ca-app-pub-9192035457575047/6121790065</string>-->
-<!--    <string name="banner_id_3">ca-app-pub-9192035457575047/6133398357</string>-->
-<!--    <string name="interstitial_id_1">ca-app-pub-9192035457575047/3427058558</string>-->
 
 </resources>

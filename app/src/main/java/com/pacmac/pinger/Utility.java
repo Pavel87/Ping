@@ -237,7 +237,8 @@ public class Utility {
 
         final AppCompatActivity mActivity = act;
         AlertDialog.Builder builder = new AlertDialog.Builder(act, 0)
-                .setCancelable(true).setMessage(act.getString(R.string.permission_explanation)).setTitle("Permission Required")
+                .setCancelable(true).setMessage(act.getString(R.string.permission_explanation))
+                .setTitle(act.getString(R.string.permission_rationale_title))
                 .setPositiveButton((act.getResources().getString(R.string.permission_proceed)), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

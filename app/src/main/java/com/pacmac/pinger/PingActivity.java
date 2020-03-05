@@ -25,7 +25,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -33,7 +32,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -140,9 +138,6 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             @Override
             public void onClick(View v) {
 
-                setRoutingViewVisible(networkMonitor.isWIFIConnected());
-                setLocalNetworkVisible(false);
-                setInternetNetworkVisible(false);
 
                 if (isPingRunning) {
                     Ping.cancelProcess();
@@ -152,18 +147,23 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                     String address = ipEditText.getText().toString().trim();
                     boolean isValid = Utility.isAddressValid(address);
 
-                    setLocalNetworkVisible(true);
 
                     if (!isValid) {
-                        pingTextLayout.setError("Incorrect Address");
+                        pingTextLayout.setError(getResources().getString(R.string.incorrect_address));
                         return;
                     } else {
-                        if (useIPv6 && Utility.validateIP(address)) {
-                            pingTextLayout.setError("Incorrect Address. Use host name or full IPv6 address.");
+                        if (Utility.validateIP(address)) {
+                            pingTextLayout.setError(getResources().getString(R.string.incorrect_address2));
+                            return;
                         } else {
                             pingTextLayout.setError("");
                         }
                     }
+
+                    setLocalNetworkVisible(true);
+                    setRoutingViewVisible(networkMonitor.isWIFIConnected());
+                    setLocalNetworkVisible(false);
+                    setInternetNetworkVisible(false);
 
                     String routeSTR = "";
                     String timestampSTR = "";
@@ -209,12 +209,9 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                     pingAddress = address;
                     Utility.setStringToPreference(getApplicationContext(), pingAddress, Constants.PING_ADDRESS_PREF);
                     isPingRunning = true;
-                    pingBtn.setText("CANCEL");
+                    pingBtn.setText(getResources().getString(R.string.cancel));
                     exportBtn.setVisibility(View.INVISIBLE);
-                    if (useIPv6) {
-
-                    } else
-                        pingOutput.setText(">> " + ((useIPv6) ? "ping6 " : "ping ") + command + "\n");
+                    pingOutput.setText(">> " + ((useIPv6) ? "ping6 " : "ping ") + command + "\n");
                 }
             }
         });
@@ -307,10 +304,10 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         popupWindow.dismiss();
 
         int length = Snackbar.LENGTH_LONG;
-        String message = "Exported to /sdcard/ICMP Ping/ping_" + pingAddress + ".txt";
+        String message = String.format(Locale.ENGLISH, "%s%s.txt", getResources().getString(R.string.exported_to), pingAddress);
         if (!success) {
             length = Snackbar.LENGTH_SHORT;
-            message = "Ping log not exported due to ERROR";
+            message = getResources().getString(R.string.exported_failed);
         }
         Snackbar.make(findViewById(android.R.id.content), message, length)
                 .setActionTextColor(Color.RED)
@@ -428,7 +425,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                                            int[] grantResults) {
         if (requestCode == Constants.PING_WRITE_EXT_STORAGE_RC) {
             if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
-                Snackbar.make(findViewById(android.R.id.content), "Export to SD enabled.", Snackbar.LENGTH_SHORT)
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.exported_permitted), Snackbar.LENGTH_SHORT)
                         .setActionTextColor(Color.RED)
                         .show();
             }

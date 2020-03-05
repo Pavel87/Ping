@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ICMP Ping</string>
+    <string name="config_name">Nastavení</string>
+    <string name="about_name">O Aplikaci</string>
+
+    <string name="permission_explanation">Pokud chcete exportovat výsledek pingu do úložište v zařízení, je třeba k němu povolit přístup.</string>
+
+    <string name="permission_proceed">POKRAČOVAT</string>
+    <string name="permission_cancel">ZRUŠIT</string>
+    <string name="settings">Nastavní</string>
+    <string name="options">Možnosti</string>
+    <string name="address_format">Formáty Adres</string>
+    <string name="ipAddress1">Vzor IP adresy</string>
+    <string name="ipAddress2">9.9.9.9\n192.168.2.1</string>
+    <string name="urlAddress1">Vzor URL</string>
+    <string name="urlAddress2">www.google.cz\ngoogle.cz</string>
+
+    <string name="feedback">ICMP Ping - Feedback</string>
+
+    <string name="deadline_description">Maximální čas po který budou ICMP pakety odesílány v sekundách. Po vypršení času dojde k ukončení bez ohledu na to kolik paketů bylo odesláno.</string>
+    <string name="timeout_description">Maximální čas po který bude program čekat na odpověď jednoho paketu v sekundách.</string>
+    <string name="count_description">Definuje počet odesílaných ICMP paketů</string>
+    <string name="size_description">Velikost paketu v Bytech. Výchozí velikost je 56B. ICMP Ping přidává dalších 8B hlavičku ke každému paketu (dohromady tedy 64B).</string>
+    <string name="interval_description">Nastavení intervalu mezi odchozími pakety. Výchozí hodnota je 1 sekunda. Nejrychlejší interval je 200ms.</string>
+    <string name="ttl_description">TTL číslo představuje maximální počet síťových routerů přes které ping paket musí projít. Pokud je číslo nižší než je počet uzlů mezi telefonem a vzdáleným bodem bude paket zahozen.</string>
+    <string name="route_description">Směrovací info (pouze pro IPv4). Parametr RECORD_ROUTE je přidán k odchozímu paketu. Příchozí paket tak může obsahovat informace až o 9 routerech na dané cestě. Spousta uzlů v síti nepodportuje tento parametr tudíž funkčnost je značně limitovaná.</string>
+    <string name="timestamp_description">Nastaví speciální časovou stopu \'tsandaddr\' (časový údaj a adresy). Tento parametr není podporovaný mnoha routery.</string>
+    <string name="about_app">Aplikace využívá Linux ping s použitím několika parametrů, které můžou býto kofigurovány.\n\Aplikaci vyvinul pacmac 2020.</string>
+    <string name="ping_count">Počet</string>
+    <string name="packet_size">Velikost Paketu</string>
+    <string name="ping_interval">Interval</string>
+    <string name="time_to_live">TTL</string>
+    <string name="ping_deadline">Deadline</string>
+    <string name="ping_timeout">Timeout</string>
+    <string name="use_ipv6_ping">Použít IPv6 Ping</string>
+    <string name="route_option">Zaznamenat Směrovací Info</string>
+    <string name="timestamp_addresses">Časové údaje a Adresy</string>
+    <string name="enter_ip_or_url_address">IP nebo URL adresa</string>
+    <string name="ping">Ping</string>
+    <string name="version">Verze:</string>
+    <string name="send_feedbck">Ohodnotit</string>
+    <string name="incorrect_address">Chybná adresa</string>
+    <string name="incorrect_address2">Použij doménu nebo IPv6 adresu.</string>
+    <string name="cancel">ZRUŠIT</string>
+    <string name="share">Sdílet</string>
+    <string name="export_file">Export na SD</string>
+    <string name="permission_rationale_title">Přístup k úložišti</string>
+    <string name="exported_to">Exportováno do souboru /sdcard/ICMP Ping/ping_</string>
+    <string name="exported_failed">Chyba při exportování dat. Zkuste to znovu.</string>
+    <string name="exported_permitted">Export na SD kartu povolen.</string>
+
+</resources>
