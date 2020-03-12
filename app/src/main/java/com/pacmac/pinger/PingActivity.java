@@ -145,24 +145,27 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 } else {
 
                     String address = ipEditText.getText().toString().trim();
-                    boolean isValid = Utility.isAddressValid(address);
+                    boolean isURLValid = Utility.isURLValid(address);
 
-
-                    if (!isValid) {
-                        pingTextLayout.setError(getResources().getString(R.string.incorrect_address));
-                        return;
-                    } else {
-                        if (Utility.validateIP(address)) {
-                            pingTextLayout.setError(getResources().getString(R.string.incorrect_address2));
-                            return;
+                    if (!isURLValid) {
+                        if (useIPv6) {
+                            if (!Utility.isIPv6Valid(address)) {
+                                pingTextLayout.setError(getResources().getString(R.string.incorrect_address2));
+                                return;
+                            }
                         } else {
-                            pingTextLayout.setError("");
+                            if (!Utility.isIPv4Valid(address)) {
+                                pingTextLayout.setError(getResources().getString(R.string.incorrect_address));
+                                return;
+                            }
                         }
                     }
 
+                    pingTextLayout.setError("");
+
                     setLocalNetworkVisible(true);
                     setRoutingViewVisible(networkMonitor.isWIFIConnected());
-                    setLocalNetworkVisible(false);
+//                    setLocalNetworkVisible(false);
                     setInternetNetworkVisible(false);
 
                     String routeSTR = "";

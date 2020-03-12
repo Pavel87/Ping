@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ICMP Ping</string>
     <string name="config_name">ICMP Ping Configuration</string>
     <string name="about_name">About ICMP Ping</string>
-    <string name="permission_explanation">If you wish export file to SD you will must grant access to file system.</string>
+    <string name="permission_explanation">If you wish to export data to SD  card you must grant access to the file system.</string>
     <string name="permission_proceed">PROCEED</string>
     <string name="permission_cancel">CANCEL</string>
     <string name="settings">Settings</string>
@@ -14,13 +13,13 @@
     <string name="urlAddress1">URL Example </string>
     <string name="urlAddress2">www.google.com\ngoogle.com</string>
     <string name="feedback">ICMP Ping - Feedback</string>
-    <string name="deadline_description">Specify a timeout, in seconds, before ping exits regardless of how many packets have been sent or received.</string>
+    <string name="deadline_description">Specify a timeout, in seconds, before ping will exit regardless of how many packets have been sent or received.</string>
     <string name="timeout_description">Time to wait for a response of single ping, in seconds.</string>
     <string name="count_description">Defines amount of packet sent.</string>
     <string name="size_description">The number of data bytes to be sent. The default is 56, which translates into 64 ICMP data bytes when combined with the 8 bytes of ICMP header data.</string>
     <string name="interval_description">Set an interval of wait seconds between sending each packet. default=1 second. The fastest interval is 0.2 seconds.</string>
     <string name="ttl_description">Value of an IP packet represents the maximum number of IP routers that the packet can go through before being thrown away..</string>
-    <string name="route_description">Record route(IPv4 only). Includes the RECORD_ROUTE option in the ECHO_REQUEST packet and display the route buffer on returned packets. Note that the IP header is only large enough for nine such routes. Many hosts ignore or discard this option. NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
+    <string name="route_description">Record route(IPv4 only). Includes the RECORD_ROUTE option in the ECHO_REQUEST packet and displays the route buffer on returned packets. Note that the IP header is only large enough for nine such routes. Many hosts ignore or discard this option. NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
     <string name="timestamp_description">Set special IP timestamp options \'tsandaddr\' (timestamps and addresses). NOT ALL ROUTERS SUPPORT THIS OPTION.</string>
     <string name="about_app">Application access system ping with several configuration options. Ping functionality is similar to Unix.\n\nDeveloped by pacmac 2020.</string>
     <string name="ping_count">Count</string>
@@ -45,6 +44,5 @@
     <string name="exported_to">Exported to /sdcard/ICMP Ping/ping_</string>
     <string name="exported_failed">Ping log not exported due to ERROR.</string>
     <string name="exported_permitted">Export to SD enabled.</string>
-
 
 </resources>

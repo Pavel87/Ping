@@ -9,16 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.util.DisplayMetrics;
-import android.view.Display;
-
-import com.google.android.gms.ads.AdSize;
-
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,6 +22,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 /**
  * Created by pacmac on 2018-05-27.
@@ -50,10 +45,26 @@ public class Utility {
      * @param ip ip address for validation
      * @return true valid ip address, false invalid ip address
      */
-    protected static boolean validateIP(final String ip) {
+    protected static boolean isIPv4Valid(final String ip) {
+        // IP address
+        String[] elements = ip.split("\\.");
+        if (elements.length != 4) {
+            return false;
+        }
         Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
         Matcher matcher = pattern.matcher(ip);
         return matcher.matches();
+    }
+
+    protected static boolean isIPv6Valid(final String ip) {
+        byte[] ipInBytes = ip.toLowerCase().getBytes();
+
+        for (byte b : ipInBytes) {
+            if ((b < (byte) '0' || b > (byte) '9') && b != (byte) ':' && (b < (byte) 'a' || b > (byte) 'f')) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /* Returns true if url is valid */
@@ -67,16 +78,18 @@ public class Utility {
         }
     }
 
-    public static boolean isAddressValid(String address) {
-        if (address.length() == 0 || address.contains("http") || !address.contains(".") || address.contains("://")) {
+    public static boolean isURLValid(String address) {
+        address = address.toLowerCase();
+        byte lastChar = ((byte) address.charAt(address.length() - 1));
+        if (address.length() == 0
+                || address.contains("http")
+                || !address.contains(".")
+                || address.contains("://")
+                || (lastChar < (byte) 'a'
+                || lastChar > (byte) 'z')) {
             return false;
         }
 
-        // IP address
-        String[] elements = address.split("\\.");
-        if (elements.length == 4) {
-            return Utility.validateIP(address);
-        }
         return Utility.isValidURL(address);
     }
 

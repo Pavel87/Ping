@@ -2,7 +2,6 @@ package com.pacmac.pinger;
 
 import android.content.Context;
 
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import android.util.Log;
 
@@ -26,15 +25,40 @@ public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        Context context = androidx.test.InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.pacmac.pinger", appContext.getPackageName());
+
+        assertEquals("com.pacmac.pinger", context.getPackageName());
     }
 
+    @Test
+    public void validateAddress() {
+        assertTrue(Utility.isIPv6Valid("fe20:23:::01"));
+        assertTrue(Utility.isIPv6Valid("2607:f8b0:400a"));
+        assertTrue(Utility.isIPv6Valid("2001:569:be80:750"));
+        assertTrue(Utility.isIPv6Valid("fe20:23:::01"));
+        assertTrue(Utility.isIPv6Valid("2001:db8:85a3::8a2e:370"));
+        assertFalse(Utility.isIPv6Valid("g001:db8:85a3::8a2e:370"));
+        assertFalse(Utility.isIPv6Valid("wwsdasda.cz"));
+
+
+
+        assertTrue(Utility.isIPv4Valid("192.1.3.1"));
+        assertTrue(Utility.isIPv4Valid("127.0.0.1"));
+        assertTrue(Utility.isIPv4Valid("77.34.76.12"));
+        assertFalse(Utility.isIPv4Valid("77.34.76:12"));
+
+
+        assertFalse(Utility.isURLValid("www.sda.as1"));
+        assertFalse(Utility.isURLValid("www.sda.as."));
+        assertFalse(Utility.isURLValid("www.sda.asA:!"));
+        assertFalse(Utility.isURLValid("sda.asA:!"));
+        assertTrue(Utility.isURLValid("sda.cz"));
+    }
 
     @Test
     public void pingTest() throws Exception {
-        Context appContext = InstrumentationRegistry.getTargetContext().getApplicationContext();
+        Context appContext = androidx.test.InstrumentationRegistry.getInstrumentation().getTargetContext();
 
 //        //dhcp address
 //        WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
