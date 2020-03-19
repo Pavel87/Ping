@@ -145,6 +145,10 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 } else {
 
                     String address = ipEditText.getText().toString().trim();
+                    if (address.length() == 0) {
+                        pingTextLayout.setError(getResources().getString(R.string.incorrect_address));
+                        return;
+                    }
                     boolean isURLValid = Utility.isURLValid(address);
 
                     if (!isURLValid) {
