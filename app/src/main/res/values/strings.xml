@@ -34,7 +34,7 @@
     <string name="enter_ip_or_url_address">Enter IP or URL address</string>
     <string name="ping">Ping</string>
     <string name="version">Version:</string>
-    <string name="send_feedbck">Send Feedback</string>
+    <string name="send_feedback">Send Feedback</string>
     <string name="incorrect_address">Incorrect Address</string>
     <string name="incorrect_address2">Use host name or full IPv6 address.</string>
     <string name="cancel">CANCEL</string>

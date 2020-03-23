@@ -39,7 +39,7 @@
     <string name="enter_ip_or_url_address">IP nebo URL adresa</string>
     <string name="ping">Ping</string>
     <string name="version">Verze:</string>
-    <string name="send_feedbck">Ohodnotit</string>
+    <string name="send_feedback">Ohodnotit</string>
     <string name="incorrect_address">Chybná adresa</string>
     <string name="incorrect_address2">Použij doménu nebo IPv6 adresu.</string>
     <string name="cancel">ZRUŠIT</string>

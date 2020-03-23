@@ -1,19 +1,16 @@
 package com.pacmac.pinger;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -38,11 +35,6 @@ public class AboutActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
         AdView mAdView2 = findViewById(R.id.adView2);
-
-        int orientation = getRequestedOrientation();
-//        if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-//            mAdView2.setAdSize(AdSize.SMART_BANNER);
-//        }
         AdRequest adRequest2 = new AdRequest.Builder().build();
         mAdView2.loadAd(adRequest2);
 
@@ -59,7 +51,7 @@ public class AboutActivity extends AppCompatActivity {
                 Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"pacmac.dev@gmail.com"});
                 Email.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.feedback));
                 Email.putExtra(Intent.EXTRA_TEXT, "");
-                startActivity(Intent.createChooser(Email, "Send Feedback:"));
+                startActivity(Intent.createChooser(Email, getResources().getString(R.string.send_feedback)));
             }
         });
     }
@@ -68,7 +60,6 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (shouldShowAd) {
             shouldShowAd = false;
             if (mInterstitialAd.isLoaded()) {

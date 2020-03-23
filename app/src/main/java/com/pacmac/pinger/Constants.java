@@ -3,10 +3,9 @@ package com.pacmac.pinger;
 /**
  * Created by pacmac on 2018-05-27.
  */
-
 public class Constants {
 
-    protected final static String VERSION = "1.8";
+    protected final static String VERSION = "1.9";
 
     protected final static int PING_SETTINGS_RC = 8;
     protected final static int PING_WRITE_EXT_STORAGE_RC = 88;
