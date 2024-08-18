@@ -23,10 +23,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -40,7 +42,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.PermissionChecker;
 import androidx.core.widget.NestedScrollView;
 
-public class PingActivity extends AppCompatActivity implements PingListener, ExportListener, NetworkMonitor.NetworkMonitorCallback {
+public class PingActivity extends AppCompatActivity implements PingListener, NetworkMonitor.NetworkMonitorCallback {
 
     private TextView phoneIP = null;
     private TextView routerIP = null;
@@ -81,7 +83,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
     private String gatewayIPAddress = "UNKNOWN";
     private String remoteIPAddress = "UNKNOWN";
 
-    private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +100,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_id_2));
+        loadInterstitialAd();
 
         pingTextLayout = findViewById(R.id.pingTextLayout);
         ipEditText = findViewById(R.id.pingAddress);
@@ -237,6 +238,29 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         networkMonitor = new NetworkMonitor(this);
     }
 
+    private void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this, getResources().getString(R.string.interstitial_id_2), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+            }
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError loadAdError) {
+                mInterstitialAd = null;
+            }
+        });
+    }
+
+    private void showInterstitialAd() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+
+        }
+    }
+
 
     public void showPopup(View v) {
 
@@ -266,32 +290,8 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 shouldShowFullScreenAd = true;
                 Utility.sendShareIntent(PingActivity.this, pingAddress, pingOutput.getText().toString());
-            }
-        });
-
-        View export = popupView.findViewById(R.id.exportOption);
-        export.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                boolean isPermissionEnabled = true;
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                        PermissionChecker.checkSelfPermission(getApplicationContext(),
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
-                    isPermissionEnabled = false;
-                    Utility.displayExplanationForPermission(PingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                }
-                if (isPermissionEnabled) {
-                    // EXPORT TO SD
-                    SaveToSDTask saveTask = new SaveToSDTask(PingActivity.this);
-                    String[] pingExport = {pingOutput.getText().toString(), pingAddress};
-                    saveTask.execute(pingExport);
-                }
             }
         });
 
@@ -304,21 +304,6 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
                 .alpha(1.0f)
                 .setListener(null);
 
-    }
-
-    @Override
-    public void onExportComplete(boolean success) {
-        popupWindow.dismiss();
-
-        int length = Snackbar.LENGTH_LONG;
-        String message = String.format(Locale.ENGLISH, "%s%s.txt", getResources().getString(R.string.exported_to), pingAddress);
-        if (!success) {
-            length = Snackbar.LENGTH_SHORT;
-            message = getResources().getString(R.string.exported_failed);
-        }
-        Snackbar.make(findViewById(android.R.id.content), message, length)
-                .setActionTextColor(Color.RED)
-                .show();
     }
 
     @Override
@@ -406,9 +391,7 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
 
         if (shouldShowFullScreenAd) {
             shouldShowFullScreenAd = false;
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            }
+            showInterstitialAd();
         }
     }
 
@@ -424,18 +407,6 @@ public class PingActivity extends AppCompatActivity implements PingListener, Exp
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[],
-                                           int[] grantResults) {
-        if (requestCode == Constants.PING_WRITE_EXT_STORAGE_RC) {
-            if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
-                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.exported_permitted), Snackbar.LENGTH_SHORT)
-                        .setActionTextColor(Color.RED)
-                        .show();
-            }
         }
     }
 

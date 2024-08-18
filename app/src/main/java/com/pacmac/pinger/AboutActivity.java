@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +18,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private TextView versionText = null;
 
-    private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd = null;
     private boolean shouldShowAd = false;
 
 
@@ -38,22 +40,40 @@ public class AboutActivity extends AppCompatActivity {
         AdRequest adRequest2 = new AdRequest.Builder().build();
         mAdView2.loadAd(adRequest2);
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_id_1));
+        loadInterstitialAd();
 
-        findViewById(R.id.feedbackBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.feedbackBtn).setOnClickListener(v -> {
+            shouldShowAd = true;
+            Intent Email = new Intent(Intent.ACTION_SEND);
+            Email.setType("text/email");
+            Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"pacmac.dev@gmail.com"});
+            Email.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.feedback));
+            Email.putExtra(Intent.EXTRA_TEXT, "");
+            startActivity(Intent.createChooser(Email, getResources().getString(R.string.send_feedback)));
+        });
+    }
+
+    private void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this, getResources().getString(R.string.interstitial_id_1), adRequest, new InterstitialAdLoadCallback() {
             @Override
-            public void onClick(View v) {
-                shouldShowAd = true;
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"pacmac.dev@gmail.com"});
-                Email.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.feedback));
-                Email.putExtra(Intent.EXTRA_TEXT, "");
-                startActivity(Intent.createChooser(Email, getResources().getString(R.string.send_feedback)));
+            public void onAdLoaded(InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+            }
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError loadAdError) {
+                mInterstitialAd = null;
             }
         });
+    }
+
+    private void showInterstitialAd() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+
+        }
     }
 
 
@@ -62,9 +82,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onResume();
         if (shouldShowAd) {
             shouldShowAd = false;
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            }
+            showInterstitialAd();
         }
     }
 
