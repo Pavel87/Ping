@@ -39,6 +39,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.PermissionChecker;
 import androidx.core.widget.NestedScrollView;
 
@@ -89,6 +90,8 @@ public class PingActivity extends AppCompatActivity implements PingListener, Net
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ping);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
